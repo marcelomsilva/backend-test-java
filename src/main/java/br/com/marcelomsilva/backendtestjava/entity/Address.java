@@ -18,6 +18,8 @@ public class Address {
     private String neighborhood;
     private String complement;
 
+    public Address() { }
+
     public Address(String zipcode, String publicPlace, String number, String city, String state, String neighborhood, String complement) {
         this.zipcode = zipcode;
         this.publicPlace = publicPlace;
