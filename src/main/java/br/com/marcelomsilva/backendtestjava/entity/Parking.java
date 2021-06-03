@@ -1,6 +1,7 @@
 package br.com.marcelomsilva.backendtestjava.entity;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "parking")
@@ -15,7 +16,12 @@ public class Parking {
     @Column(unique = true)
     private String cnpj;
 
+    @OneToOne
+    @JoinColumn(name = "address_id")
     private Address address;
+
+    @OneToMany
+    private Set<Phone> phones;
 
     public Parking() {}
 
@@ -40,5 +46,17 @@ public class Parking {
 
     public Address getAddress() {
         return address;
+    }
+
+    public Set<Phone> getPhones() {
+        return phones;
+    }
+
+    public void setPhones(Set<Phone> phones) {
+        this.phones = phones;
+    }
+
+    public void addPhone(Phone phone) {
+        this.phones.add(phone);
     }
 }
