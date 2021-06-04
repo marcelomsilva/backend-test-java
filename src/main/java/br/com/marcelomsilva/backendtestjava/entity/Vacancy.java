@@ -11,19 +11,21 @@ public class Vacancy {
     private Long id;
 
     private Integer amount;
-    /*
+
+    @ManyToOne
+    @JoinColumn(name = "type_id")
     private Type type;
+
+    @ManyToOne
+    @JoinColumn(name = "parking_id")
     private Parking parking;
 
-     */
+    public Vacancy() {}
 
     public Vacancy(Integer amount, Type type, Parking parking) {
         this.amount = amount;
-        /*
         this.type = type;
         this.parking = parking;
-
-         */
     }
 
     public Long getId() {
@@ -34,7 +36,6 @@ public class Vacancy {
         return amount;
     }
 
-    /*
     public Type getType() {
         return type;
     }
@@ -43,5 +44,4 @@ public class Vacancy {
         return parking;
     }
 
-     */
 }

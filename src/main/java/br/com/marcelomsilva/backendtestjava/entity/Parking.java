@@ -23,6 +23,9 @@ public class Parking {
     @OneToMany(mappedBy = "parking")
     private Set<Phone> phones;
 
+    @OneToMany(mappedBy = "parking")
+    private Set<Vacancy> vacancies;
+
     public Parking() {}
 
     public Parking(String name, String cnpj, Address address) {
@@ -58,5 +61,17 @@ public class Parking {
 
     public void addPhone(Phone phone) {
         this.phones.add(phone);
+    }
+
+    public Set<Vacancy> getVacancies() {
+        return vacancies;
+    }
+
+    public void setVacancies(Set<Vacancy> vacancies) {
+        this.vacancies = vacancies;
+    }
+
+    public void addVacancy(Vacancy vacancy) {
+        this.vacancies.add(vacancy);
     }
 }
