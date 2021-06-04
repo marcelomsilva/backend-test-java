@@ -26,6 +26,10 @@ public class Parking {
     @OneToMany(mappedBy = "parking")
     private Set<Vacancy> vacancies;
 
+
+    @OneToMany(mappedBy = "parking")
+    private Set<Vehicle> vehicles;
+
     public Parking() {}
 
     public Parking(String name, String cnpj, Address address) {
@@ -73,5 +77,17 @@ public class Parking {
 
     public void addVacancy(Vacancy vacancy) {
         this.vacancies.add(vacancy);
+    }
+
+    public void setVehicles(Set<Vehicle> vehicles) {
+        this.vehicles = vehicles;
+    }
+
+    public Set<Vehicle> getVehicles() {
+        return vehicles;
+    }
+
+    public void addVehicle(Vehicle vehicle) {
+        this.vehicles.add(vehicle);
     }
 }
