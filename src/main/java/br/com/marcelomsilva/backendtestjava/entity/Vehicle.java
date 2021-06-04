@@ -11,15 +11,15 @@ public class Vehicle {
     private Long id;
 
     private String plate;
-    private Parking parking;
-    private Model model;
+    //private Parking parking;
+    //private Model model;
 
     public Vehicle() {}
 
     public Vehicle(String plate, Parking parking, Model model) {
         this.plate = plate;
-        this.parking = parking;
-        this.model = model;
+        //this.parking = parking;
+        //this.model = model;
     }
 
     public Long getId() {
@@ -29,12 +29,17 @@ public class Vehicle {
     public String getPlate() {
         return plate;
     }
-
-    public Parking getParking() {
+/*
+        public Parking getParking() {
         return parking;
     }
+ */
 
+
+    /*
     public Model getModel() {
         return model;
     }
+
+     */
 }

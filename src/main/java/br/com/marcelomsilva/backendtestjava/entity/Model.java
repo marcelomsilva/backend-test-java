@@ -11,8 +11,10 @@ public class Model {
     private Long id;
 
     private String name;
+    /*
     private Brand brand;
     private Type type;
+     */
 
     public Long getId() {
         return id;
@@ -25,6 +27,7 @@ public class Model {
     public String getName() {
         return name;
     }
+    /*
 
     public void setBrand(Brand brand) {
         this.brand = brand;
@@ -38,7 +41,11 @@ public class Model {
         this.type = type;
     }
 
+
+
     public Type getType() {
         return type;
     }
+
+     */
 }

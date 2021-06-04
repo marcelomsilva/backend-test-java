@@ -20,7 +20,7 @@ public class Parking {
     @JoinColumn(name = "address_id")
     private Address address;
 
-    @OneToMany
+    @OneToMany(mappedBy = "parking")
     private Set<Phone> phones;
 
     public Parking() {}

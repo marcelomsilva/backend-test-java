@@ -12,7 +12,11 @@ public class Phone {
 
     private String code;
     private String number;
+    @ManyToOne
+    @JoinColumn(name = "parking_id")
     private Parking parking;
+
+    public Phone() {}
 
     public Phone(String code, String number, Parking parking) {
         this.code = code;
@@ -35,4 +39,5 @@ public class Phone {
     public Parking getParking() {
         return parking;
     }
+
 }

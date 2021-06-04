@@ -11,13 +11,19 @@ public class Vacancy {
     private Long id;
 
     private Integer amount;
+    /*
     private Type type;
     private Parking parking;
 
+     */
+
     public Vacancy(Integer amount, Type type, Parking parking) {
         this.amount = amount;
+        /*
         this.type = type;
         this.parking = parking;
+
+         */
     }
 
     public Long getId() {
@@ -28,6 +34,7 @@ public class Vacancy {
         return amount;
     }
 
+    /*
     public Type getType() {
         return type;
     }
@@ -35,4 +42,6 @@ public class Vacancy {
     public Parking getParking() {
         return parking;
     }
+
+     */
 }
