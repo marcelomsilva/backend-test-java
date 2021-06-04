@@ -11,14 +11,17 @@ public class VehicleControl {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //private Vehicle vehicle;
+    @ManyToOne
+    @JoinColumn(name = "vehicle_id")
+    private Vehicle vehicle;
+
     private Instant entry;
     private Instant departure;
 
     public VehicleControl() {}
 
     public VehicleControl(Vehicle vehicle, Instant entry, Instant departure) {
-        //this.vehicle = vehicle;
+        this.vehicle = vehicle;
         this.entry = entry;
         this.departure = departure;
     }
@@ -26,13 +29,11 @@ public class VehicleControl {
     public Long getId() {
         return id;
     }
-/*
+
     public Vehicle getVehicle() {
         return vehicle;
     }
 
-
- */
     public Instant getEntry() {
         return entry;
     }

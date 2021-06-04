@@ -1,6 +1,7 @@
 package br.com.marcelomsilva.backendtestjava.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "vehicle")
@@ -19,6 +20,9 @@ public class Vehicle {
     @ManyToOne
     @JoinColumn(name = "model_id")
     private Model model;
+
+    @OneToMany(mappedBy = "vehicle")
+    private List<VehicleControl> vehicleControls;
 
     public Vehicle() {}
 
@@ -44,4 +48,7 @@ public class Vehicle {
         return model;
     }
 
+    public List<VehicleControl> getVehicleControls() {
+        return vehicleControls;
+    }
 }
