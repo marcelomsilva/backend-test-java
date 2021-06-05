@@ -16,7 +16,7 @@ public class Parking {
     @Column(unique = true)
     private String cnpj;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "address_id")
     private Address address;
 

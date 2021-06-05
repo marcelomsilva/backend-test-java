@@ -1,5 +1,8 @@
 package br.com.marcelomsilva.backendtestjava.dto.form;
 
+import br.com.marcelomsilva.backendtestjava.entity.Address;
+import br.com.marcelomsilva.backendtestjava.entity.Parking;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -67,5 +70,10 @@ public class ParkingForm {
 
     public String getComplement() {
         return complement;
+    }
+
+    public Parking convertToEntity() {
+        Address address = new Address(zipCode, publicPlace, number, city, state, neighbothood, complement);
+        return new Parking(name, cnpj, address);
     }
 }

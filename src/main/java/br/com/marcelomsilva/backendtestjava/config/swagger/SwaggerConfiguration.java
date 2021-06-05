@@ -1,5 +1,5 @@
 package br.com.marcelomsilva.backendtestjava.config.swagger;
-/*
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -13,9 +13,9 @@ import springfox.documentation.spring.web.plugins.Docket;
 
 @Configuration
 
- */
+
 public class SwaggerConfiguration {
-    /*
+
     ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("FCamara API REST")
@@ -28,11 +28,10 @@ public class SwaggerConfiguration {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("br.com.squad44.api"))
+                .apis(RequestHandlerSelectors.basePackage("br.com.marcelomsilva.backendtestjava"))
                 .paths(PathSelectors.ant("/**"))
                 .build()
                 .apiInfo(apiInfo());
     }
 
-     */
 }
