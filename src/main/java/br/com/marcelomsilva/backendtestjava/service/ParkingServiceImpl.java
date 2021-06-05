@@ -1,5 +1,6 @@
 package br.com.marcelomsilva.backendtestjava.service;
 
+import br.com.marcelomsilva.backendtestjava.dto.ParkingDto;
 import br.com.marcelomsilva.backendtestjava.dto.form.ParkingForm;
 import br.com.marcelomsilva.backendtestjava.entity.Address;
 import br.com.marcelomsilva.backendtestjava.entity.Parking;
@@ -18,8 +19,8 @@ public class ParkingServiceImpl implements ParkingService {
     }
 
     @Override
-    public ResponseEntity<Parking> create(ParkingForm form) {
-        return ResponseEntity.ok(parkingRepository.save(form.convertToEntity()));
+    public ResponseEntity<ParkingDto> create(ParkingForm form) {
+        return ResponseEntity.ok(new ParkingDto(parkingRepository.save(form.convertToEntity())));
     }
 
 }
