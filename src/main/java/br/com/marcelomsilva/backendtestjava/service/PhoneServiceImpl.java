@@ -15,8 +15,8 @@ public class PhoneServiceImpl implements PhoneService {
     }
 
     @Override
-    public void create(String code, String number, Parking parking) {
-        Phone phone = new Phone(code, number, parking);
+    public void addParkingId(Phone phone, Parking parking) {
+        phone.setParking(parking);
         phoneRepository.save(phone);
     }
 }

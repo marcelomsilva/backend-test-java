@@ -44,4 +44,7 @@ public class Phone {
         return parking;
     }
 
+    public void setParking(Parking parking) {
+        this.parking = parking;
+    }
 }

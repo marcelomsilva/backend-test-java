@@ -1,7 +1,8 @@
 package br.com.marcelomsilva.backendtestjava.service;
 
 import br.com.marcelomsilva.backendtestjava.entity.Parking;
+import br.com.marcelomsilva.backendtestjava.entity.Phone;
 
 public interface PhoneService {
-    void create(String code, String number, Parking parking);
+    void addParkingId(Phone phone, Parking parking);
 }

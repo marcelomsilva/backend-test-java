@@ -87,7 +87,7 @@ public class ParkingForm {
         return phoneNumber;
     }
 
-    public Parking convertToEntity() {
-        return new Parking(name, cnpj, new Address(zipCode, publicPlace, number, city, state, neighbothood, complement), new Phone(phoneCode, phoneNumber));
+    public Parking convertToEntity(Phone phone) {
+        return new Parking(name, cnpj, new Address(zipCode, publicPlace, number, city, state, neighbothood, complement), phone);
     }
 }

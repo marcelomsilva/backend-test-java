@@ -21,7 +21,7 @@ public class Parking {
     @JoinColumn(name = "address_id")
     private Address address;
 
-    @OneToMany(mappedBy = "parking")
+    @OneToMany(mappedBy = "parking", cascade = CascadeType.PERSIST)
     private Set<Phone> phones = new HashSet<Phone>();
 
     @OneToMany(mappedBy = "parking")
