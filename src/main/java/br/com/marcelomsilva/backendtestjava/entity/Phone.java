@@ -18,6 +18,10 @@ public class Phone {
 
     public Phone() {}
 
+    public Phone(String code, String number) {
+        this.code = code;
+        this.number = number;
+    }
     public Phone(String code, String number, Parking parking) {
         this.code = code;
         this.number = number;

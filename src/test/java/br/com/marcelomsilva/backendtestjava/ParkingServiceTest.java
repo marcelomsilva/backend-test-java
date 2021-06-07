@@ -17,7 +17,7 @@ public class ParkingServiceTest {
     @Test
     public void createTest() {
         ParkingForm form = new ParkingForm("Nome Teste", "123456", "123", "Rua Joao da Costa",
-                "321", "Sao Paulo", "SP", "Jardim Cruz", "");
+                "321", "Sao Paulo", "SP", "Jardim Cruz", "", "12", "4234234");
         assertEquals(200, service.create(form).getStatusCodeValue());
     }
 }

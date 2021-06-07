@@ -1,6 +1,7 @@
 package br.com.marcelomsilva.backendtestjava.entity;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -21,7 +22,7 @@ public class Parking {
     private Address address;
 
     @OneToMany(mappedBy = "parking")
-    private Set<Phone> phones;
+    private Set<Phone> phones = new HashSet<Phone>();
 
     @OneToMany(mappedBy = "parking")
     private Set<Vacancy> vacancies;
@@ -32,10 +33,11 @@ public class Parking {
 
     public Parking() {}
 
-    public Parking(String name, String cnpj, Address address) {
+    public Parking(String name, String cnpj, Address address, Phone phone) {
         this.name = name;
         this.cnpj = cnpj;
         this.address = address;
+        this.addPhone(phone);
     }
 
 

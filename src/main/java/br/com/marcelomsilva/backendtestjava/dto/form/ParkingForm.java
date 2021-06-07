@@ -2,6 +2,7 @@ package br.com.marcelomsilva.backendtestjava.dto.form;
 
 import br.com.marcelomsilva.backendtestjava.entity.Address;
 import br.com.marcelomsilva.backendtestjava.entity.Parking;
+import br.com.marcelomsilva.backendtestjava.entity.Phone;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -22,9 +23,13 @@ public class ParkingForm {
     private final String neighbothood;
     private final String complement;
 
+    private final String phoneCode;
+    private final String phoneNumber;
+
 
     public ParkingForm(String name, String cnpj, String zipCode, String publicPlace,
-                       String number, String city, String state, String neighbothood, String complement) {
+                       String number, String city, String state, String neighbothood,
+                       String complement, String phoneCode, String phoneNumber) {
         this.name = name;
         this.cnpj = cnpj;
         this.zipCode = zipCode;
@@ -34,6 +39,8 @@ public class ParkingForm {
         this.state = state;
         this.neighbothood = neighbothood;
         this.complement = complement;
+        this.phoneCode = phoneCode;
+        this.phoneNumber = phoneNumber;
     }
 
     public String getName() {
@@ -72,7 +79,15 @@ public class ParkingForm {
         return complement;
     }
 
+    public String getPhoneCode() {
+        return phoneCode;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
     public Parking convertToEntity() {
-        return new Parking(name, cnpj, new Address(zipCode, publicPlace, number, city, state, neighbothood, complement));
+        return new Parking(name, cnpj, new Address(zipCode, publicPlace, number, city, state, neighbothood, complement), new Phone(phoneCode, phoneNumber));
     }
 }
