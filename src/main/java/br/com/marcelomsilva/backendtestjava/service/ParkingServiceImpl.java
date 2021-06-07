@@ -3,7 +3,6 @@ package br.com.marcelomsilva.backendtestjava.service;
 import br.com.marcelomsilva.backendtestjava.dto.ParkingDto;
 import br.com.marcelomsilva.backendtestjava.dto.form.ParkingForm;
 import br.com.marcelomsilva.backendtestjava.entity.Parking;
-import br.com.marcelomsilva.backendtestjava.entity.Phone;
 import br.com.marcelomsilva.backendtestjava.repository.ParkingRepository;
 import br.com.marcelomsilva.backendtestjava.repository.PhoneRepository;
 import org.springframework.http.ResponseEntity;
@@ -15,21 +14,19 @@ import java.util.stream.Collectors;
 @Service
 public class ParkingServiceImpl implements ParkingService {
 
-    final
-    ParkingRepository parkingRepository;
+    final ParkingRepository parkingRepository;
 
-    final PhoneRepository phoneRepository;
+    final PhoneService phoneService;
 
-    public ParkingServiceImpl(ParkingRepository parkingRepository, PhoneRepository phoneRepository) {
+    public ParkingServiceImpl(ParkingRepository parkingRepository, PhoneService phoneService) {
         this.parkingRepository = parkingRepository;
-        this.phoneRepository = phoneRepository;
+        this.phoneService = phoneService;
     }
 
     @Override
     public ResponseEntity<ParkingDto> create(ParkingForm form) {
         Parking parking = parkingRepository.save(form.convertToEntity());
-        Phone phone = new Phone(form.getPhoneCode(), form.getPhoneNumber(), parking);
-        phoneRepository.save(phone);
+        phoneService.create(form.getPhoneCode(), form.getPhoneNumber(), parking);
         return ResponseEntity.ok().body(new ParkingDto(parking));
     }
 
