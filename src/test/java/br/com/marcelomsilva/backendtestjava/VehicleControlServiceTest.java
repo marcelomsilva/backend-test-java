@@ -1,6 +1,6 @@
 package br.com.marcelomsilva.backendtestjava;
 
-import br.com.marcelomsilva.backendtestjava.dto.form.VehicleControlForm;
+import br.com.marcelomsilva.backendtestjava.dto.form.VehicleControlEntryForm;
 import br.com.marcelomsilva.backendtestjava.service.VehicleControlService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +18,6 @@ public class VehicleControlServiceTest {
 
     @Test
     public void create() {
-        assertEquals(200, service.create(new VehicleControlForm(1L, Instant.now())).getStatusCodeValue());
+        assertEquals(200, service.create(new VehicleControlEntryForm(1L, Instant.now())).getStatusCodeValue());
     }
 }

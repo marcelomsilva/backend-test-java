@@ -1,6 +1,6 @@
 package br.com.marcelomsilva.backendtestjava.controller;
 
-import br.com.marcelomsilva.backendtestjava.dto.form.VehicleControlForm;
+import br.com.marcelomsilva.backendtestjava.dto.form.VehicleControlEntryForm;
 import br.com.marcelomsilva.backendtestjava.entity.VehicleControl;
 import br.com.marcelomsilva.backendtestjava.service.VehicleControlService;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +21,7 @@ public class VehicleControlController {
     }
 
     @PostMapping
-    public ResponseEntity<VehicleControl> create(@Valid VehicleControlForm form) {
+    public ResponseEntity<VehicleControl> create(@Valid VehicleControlEntryForm form) {
         return service.create(form);
     }
 }

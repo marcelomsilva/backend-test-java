@@ -5,12 +5,12 @@ import br.com.marcelomsilva.backendtestjava.repository.VehicleRepository;
 
 import java.time.Instant;
 
-public class VehicleControlForm {
+public class VehicleControlEntryForm {
 
     private Long vehicleId;
     private Instant entry;
 
-    public VehicleControlForm(Long vehicleId, Instant entry) {
+    public VehicleControlEntryForm(Long vehicleId, Instant entry) {
         this.vehicleId = vehicleId;
         this.entry = entry;
     }
