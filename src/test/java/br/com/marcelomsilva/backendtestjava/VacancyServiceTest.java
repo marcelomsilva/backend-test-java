@@ -15,5 +15,6 @@ public class VacancyServiceTest {
     @Test
     public void create() {
         vacancyService.create(new VacancyForm(20, 1L, 1L));
+
     }
 }

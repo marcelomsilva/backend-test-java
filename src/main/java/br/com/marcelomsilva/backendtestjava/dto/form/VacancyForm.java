@@ -1,5 +1,10 @@
 package br.com.marcelomsilva.backendtestjava.dto.form;
 
+import br.com.marcelomsilva.backendtestjava.entity.Type;
+import br.com.marcelomsilva.backendtestjava.entity.Vacancy;
+import br.com.marcelomsilva.backendtestjava.repository.ParkingRepository;
+import br.com.marcelomsilva.backendtestjava.repository.TypeRepository;
+
 public class VacancyForm {
 
     private Integer amount;
@@ -22,5 +27,9 @@ public class VacancyForm {
 
     public Long getParkingId() {
         return parkingId;
+    }
+
+    public Vacancy convertToEntity(TypeRepository typeRepository, ParkingRepository parkingRepository) {
+        return new Vacancy(amount, typeRepository.findById(typeId).get(), parkingRepository.findById(parkingId).get());
     }
 }
