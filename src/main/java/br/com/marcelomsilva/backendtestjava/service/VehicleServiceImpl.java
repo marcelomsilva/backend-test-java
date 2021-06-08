@@ -23,7 +23,6 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     public ResponseEntity<VehicleDto> create(VehicleForm form) {
-        form.convertToEntity(parkingRepository, modelRepository);
-        return null;
+        return ResponseEntity.ok().body(new VehicleDto(vehicleRepository.save(form.convertToEntity(parkingRepository, modelRepository))));
     }
 }
