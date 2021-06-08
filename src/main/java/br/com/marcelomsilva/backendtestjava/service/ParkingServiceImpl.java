@@ -5,7 +5,6 @@ import br.com.marcelomsilva.backendtestjava.dto.form.ParkingForm;
 import br.com.marcelomsilva.backendtestjava.entity.Parking;
 import br.com.marcelomsilva.backendtestjava.entity.Phone;
 import br.com.marcelomsilva.backendtestjava.repository.ParkingRepository;
-import br.com.marcelomsilva.backendtestjava.repository.PhoneRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 

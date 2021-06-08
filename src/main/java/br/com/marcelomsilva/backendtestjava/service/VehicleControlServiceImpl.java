@@ -1,7 +1,6 @@
 package br.com.marcelomsilva.backendtestjava.service;
 
 import br.com.marcelomsilva.backendtestjava.dto.form.VehicleControlForm;
-import br.com.marcelomsilva.backendtestjava.entity.Vehicle;
 import br.com.marcelomsilva.backendtestjava.entity.VehicleControl;
 import br.com.marcelomsilva.backendtestjava.repository.VehicleRepository;
 import org.springframework.http.ResponseEntity;

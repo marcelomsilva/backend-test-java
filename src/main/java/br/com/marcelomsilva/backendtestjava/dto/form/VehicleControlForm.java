@@ -1,9 +1,7 @@
 package br.com.marcelomsilva.backendtestjava.dto.form;
 
-import br.com.marcelomsilva.backendtestjava.entity.Vehicle;
 import br.com.marcelomsilva.backendtestjava.entity.VehicleControl;
 import br.com.marcelomsilva.backendtestjava.repository.VehicleRepository;
-import br.com.marcelomsilva.backendtestjava.service.VehicleControlService;
 
 import java.time.Instant;
 

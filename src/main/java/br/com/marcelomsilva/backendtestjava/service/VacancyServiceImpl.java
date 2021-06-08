@@ -4,7 +4,6 @@ import br.com.marcelomsilva.backendtestjava.dto.form.VacancyForm;
 import br.com.marcelomsilva.backendtestjava.entity.Vacancy;
 import br.com.marcelomsilva.backendtestjava.repository.ParkingRepository;
 import br.com.marcelomsilva.backendtestjava.repository.TypeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
