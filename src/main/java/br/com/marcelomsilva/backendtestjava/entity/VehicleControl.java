@@ -20,10 +20,9 @@ public class VehicleControl {
 
     public VehicleControl() {}
 
-    public VehicleControl(Vehicle vehicle, Instant entry, Instant departure) {
+    public VehicleControl(Vehicle vehicle, Instant entry) {
         this.vehicle = vehicle;
         this.entry = entry;
-        this.departure = departure;
     }
 
     public Long getId() {
@@ -36,6 +35,10 @@ public class VehicleControl {
 
     public Instant getEntry() {
         return entry;
+    }
+
+    public void setDeparture(Instant departure) {
+        this.departure = departure;
     }
 
     public Instant getDeparture() {
