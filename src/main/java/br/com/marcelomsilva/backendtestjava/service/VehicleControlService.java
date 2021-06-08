@@ -2,9 +2,10 @@ package br.com.marcelomsilva.backendtestjava.service;
 
 import br.com.marcelomsilva.backendtestjava.dto.form.VehicleControlForm;
 import br.com.marcelomsilva.backendtestjava.entity.Vehicle;
+import br.com.marcelomsilva.backendtestjava.entity.VehicleControl;
 import org.springframework.http.ResponseEntity;
 
 public interface VehicleControlService {
 
-    ResponseEntity<Vehicle> create(VehicleControlForm form);
+    ResponseEntity<VehicleControl> create(VehicleControlForm form);
 }
