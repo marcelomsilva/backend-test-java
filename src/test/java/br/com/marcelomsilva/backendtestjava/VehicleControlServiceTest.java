@@ -8,6 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.Instant;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @SpringBootTest
 public class VehicleControlServiceTest {
 
@@ -16,6 +18,6 @@ public class VehicleControlServiceTest {
 
     @Test
     public void create() {
-        service.create(new VehicleControlForm(1L, Instant.now()));
+        assertEquals(200, service.create(new VehicleControlForm(1L, Instant.now())).getStatusCodeValue());
     }
 }

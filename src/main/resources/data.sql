@@ -18,3 +18,5 @@ insert into model(name, brand_id, type_id) values('Camaro', 1, 1);
 insert into address(zipcode, public_place, number, city, state, neighborhood, complement) values('115488', 'Rua Joaquim Manoel', '151', 'sao paulo', 'sp', 'jardins', '');
 
 insert into parking(name, cnpj, address_id) values('Estacionamento Teste', '7584856680011', 1);
+
+insert into vehicle(plate, parking_id, model_id) values('ytd215e', 1, 1);
