@@ -4,10 +4,18 @@ import br.com.marcelomsilva.backendtestjava.entity.Vehicle;
 import br.com.marcelomsilva.backendtestjava.repository.ModelRepository;
 import br.com.marcelomsilva.backendtestjava.repository.ParkingRepository;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 public class VehicleForm {
 
+    @NotNull @NotEmpty
     private String plate;
+
+    @NotNull
     private Long parkingId;
+
+    @NotEmpty
     private Long modelId;
 
     public VehicleForm(String plate, Long parkingId, Long modelId) {
