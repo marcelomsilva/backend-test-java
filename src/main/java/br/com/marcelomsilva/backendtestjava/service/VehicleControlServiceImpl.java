@@ -9,15 +9,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class VehicleControlServiceImpl implements VehicleControlService {
 
-    final
-    VehicleRepository vehicleRepository;
+    final VehicleService vehicleService;
 
-    public VehicleControlServiceImpl(VehicleRepository vehicleRepository) {
-        this.vehicleRepository = vehicleRepository;
+    public VehicleControlServiceImpl(VehicleService vehicleService) {
+        this.vehicleService = vehicleService;
     }
 
     @Override
     public ResponseEntity<VehicleControl> create(VehicleControlEntryForm form) {
-        return ResponseEntity.ok().body(form.convertToEntity(vehicleRepository));
+        return ResponseEntity.ok().body(form.convertToEntity(vehicleService));
     }
 }

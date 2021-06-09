@@ -1,7 +1,7 @@
 package br.com.marcelomsilva.backendtestjava.dto.form;
 
 import br.com.marcelomsilva.backendtestjava.entity.VehicleControl;
-import br.com.marcelomsilva.backendtestjava.repository.VehicleRepository;
+import br.com.marcelomsilva.backendtestjava.service.VehicleService;
 
 import java.time.Instant;
 
@@ -23,7 +23,7 @@ public class VehicleControlEntryForm {
         return entry;
     }
 
-    public VehicleControl convertToEntity(VehicleRepository vehicleRepository) {
-        return new VehicleControl(vehicleRepository.findById(vehicleId).get(), entry);
+    public VehicleControl convertToEntity(VehicleService vehicleService) {
+        return new VehicleControl(vehicleService.verifyAndGetById(vehicleId), entry);
     }
 }
