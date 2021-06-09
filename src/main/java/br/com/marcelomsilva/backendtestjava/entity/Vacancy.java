@@ -11,6 +11,7 @@ public class Vacancy {
     private Long id;
 
     private Integer amount;
+    private Integer amountOccupied;
 
     @ManyToOne
     @JoinColumn(name = "type_id")
@@ -44,4 +45,11 @@ public class Vacancy {
         return parking;
     }
 
+    public void setAmountOccupied(Integer amountOccupied) {
+        this.amountOccupied = amountOccupied;
+    }
+
+    public Integer getAmountOccupied() {
+        return amountOccupied;
+    }
 }
