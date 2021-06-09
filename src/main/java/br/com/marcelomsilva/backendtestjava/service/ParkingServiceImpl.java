@@ -9,13 +9,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class ParkingServiceImpl implements ParkingService {
 
     final ParkingRepository parkingRepository;
-
     final PhoneService phoneService;
 
     public ParkingServiceImpl(ParkingRepository parkingRepository, PhoneService phoneService) {
@@ -36,6 +37,14 @@ public class ParkingServiceImpl implements ParkingService {
     public List<ParkingDto> get() {
         List<Parking> list = (List<Parking>) parkingRepository.findAll();
         return list.stream().map(p -> new ParkingDto(p)).collect(Collectors.toList());
+    }
+
+    @Override
+    public Parking verifyAndGetById(Long id) {
+        Optional<Parking> optional = parkingRepository.findById(id);
+        if(optional.isPresent())
+            return optional.get();
+        throw new NoSuchElementException("Estacionamento de veículo com id " + id + "não foi encontrado");
     }
 
 }
