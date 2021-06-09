@@ -1,7 +1,7 @@
 package br.com.marcelomsilva.backendtestjava.service;
 
+import br.com.marcelomsilva.backendtestjava.dto.VehicleControlDto;
 import br.com.marcelomsilva.backendtestjava.dto.form.VehicleControlEntryForm;
-import br.com.marcelomsilva.backendtestjava.entity.VehicleControl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +15,7 @@ public class VehicleControlServiceImpl implements VehicleControlService {
     }
 
     @Override
-    public ResponseEntity<VehicleControl> create(VehicleControlEntryForm form) {
-        return ResponseEntity.ok().body(form.convertToEntity(vehicleService));
+    public ResponseEntity<VehicleControlDto> create(VehicleControlEntryForm form) {
+        return ResponseEntity.ok().body(new VehicleControlDto(form.convertToEntity(vehicleService)));
     }
 }
