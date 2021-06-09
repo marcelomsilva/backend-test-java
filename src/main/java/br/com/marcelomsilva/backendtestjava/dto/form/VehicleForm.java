@@ -3,6 +3,8 @@ package br.com.marcelomsilva.backendtestjava.dto.form;
 import br.com.marcelomsilva.backendtestjava.entity.Vehicle;
 import br.com.marcelomsilva.backendtestjava.repository.ModelRepository;
 import br.com.marcelomsilva.backendtestjava.repository.ParkingRepository;
+import br.com.marcelomsilva.backendtestjava.service.ModelService;
+import br.com.marcelomsilva.backendtestjava.service.ParkingService;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -36,7 +38,7 @@ public class VehicleForm {
         return modelId;
     }
 
-    public Vehicle convertToEntity(ParkingRepository parkingRepository, ModelRepository modelRepository) {
-        return new Vehicle(plate, parkingRepository.findById(parkingId).get(), modelRepository.findById(modelId).get());
+    public Vehicle convertToEntity(ParkingService parkingService, ModelService modelService) {
+        return new Vehicle(plate, parkingService.verifyAndGetById(parkingId), modelService.verifyAndGetById(modelId));
     }
 }

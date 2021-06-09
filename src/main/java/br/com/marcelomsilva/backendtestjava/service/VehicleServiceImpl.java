@@ -17,18 +17,18 @@ import java.util.Optional;
 public class VehicleServiceImpl implements VehicleService {
 
     final VehicleRepository vehicleRepository;
-    final ParkingRepository parkingRepository;
-    final ModelRepository modelRepository;
+    final ParkingService parkingService;
+    final ModelService modelService;
 
-    public VehicleServiceImpl(VehicleRepository vehicleRepository, ParkingRepository parkingRepository, ModelRepository modelRepository) {
+    public VehicleServiceImpl(VehicleRepository vehicleRepository, ParkingService parkingService, ModelService modelService) {
         this.vehicleRepository = vehicleRepository;
-        this.parkingRepository = parkingRepository;
-        this.modelRepository = modelRepository;
+        this.parkingService = parkingService;
+        this.modelService = modelService;
     }
 
     @Override
     public ResponseEntity<VehicleDto> create(VehicleForm form) {
-        return ResponseEntity.ok().body(new VehicleDto(vehicleRepository.save(form.convertToEntity(parkingRepository, modelRepository))));
+        return ResponseEntity.ok().body(new VehicleDto(vehicleRepository.save(form.convertToEntity(parkingService, modelService))));
     }
 
     @Override
