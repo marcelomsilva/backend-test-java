@@ -12,11 +12,17 @@ public class VehicleControlEntryForm {
 
     public VehicleControlEntryForm(Long vehicleId, Instant entry) {
         this.vehicleId = vehicleId;
-        this.entry = entry;
+        this.setEntry(entry);
     }
 
     public Long getVehicleId() {
         return vehicleId;
+    }
+
+    public void setEntry(Instant entry) {
+        if(entry == null)
+            this.entry = Instant.now();
+        else this.entry = entry;
     }
 
     public Instant getEntry() {
