@@ -2,9 +2,7 @@ package br.com.marcelomsilva.backendtestjava.dto;
 
 import br.com.marcelomsilva.backendtestjava.entity.Address;
 import br.com.marcelomsilva.backendtestjava.entity.Parking;
-import br.com.marcelomsilva.backendtestjava.entity.Phone;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 

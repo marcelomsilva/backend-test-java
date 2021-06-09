@@ -25,6 +25,7 @@ public class Vacancy {
 
     public Vacancy(Integer amount, Type type, Parking parking) {
         this.amount = amount;
+        this.amountOccupied = 0;
         this.type = type;
         this.parking = parking;
     }
