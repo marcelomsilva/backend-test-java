@@ -1,7 +1,7 @@
 package br.com.marcelomsilva.backendtestjava.controller;
 
+import br.com.marcelomsilva.backendtestjava.dto.VacancyDto;
 import br.com.marcelomsilva.backendtestjava.dto.form.VacancyForm;
-import br.com.marcelomsilva.backendtestjava.entity.Vacancy;
 import br.com.marcelomsilva.backendtestjava.service.VacancyService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +21,7 @@ public class VacancyController {
     }
 
     @PostMapping
-    public ResponseEntity<Vacancy> create(@Valid VacancyForm form) {
+    public ResponseEntity<VacancyDto> create(@Valid VacancyForm form) {
         return service.create(form);
     }
 }
