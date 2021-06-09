@@ -10,17 +10,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class VacancyServiceImpl implements VacancyService {
 
-    final ParkingRepository parkingRepository;
+    final ParkingService parkingService;
+    final TypeService typeService;
 
-    final TypeRepository typeRepository;
-
-    public VacancyServiceImpl(ParkingRepository parkingRepository, TypeRepository typeRepository) {
-        this.parkingRepository = parkingRepository;
-        this.typeRepository = typeRepository;
+    public VacancyServiceImpl(ParkingService parkingService, TypeService typeService) {
+        this.parkingService = parkingService;
+        this.typeService = typeService;
     }
 
     @Override
     public ResponseEntity<Vacancy> create(VacancyForm form) {
-        return ResponseEntity.ok().body(form.convertToEntity(typeRepository, parkingRepository));
+        return ResponseEntity.ok().body(form.convertToEntity(typeService, parkingService));
     }
 }
