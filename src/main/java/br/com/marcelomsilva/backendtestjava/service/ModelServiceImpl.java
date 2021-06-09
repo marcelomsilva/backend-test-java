@@ -1,7 +1,6 @@
 package br.com.marcelomsilva.backendtestjava.service;
 
 import br.com.marcelomsilva.backendtestjava.entity.Model;
-import br.com.marcelomsilva.backendtestjava.entity.Vehicle;
 import br.com.marcelomsilva.backendtestjava.repository.ModelRepository;
 import org.springframework.stereotype.Service;
 
