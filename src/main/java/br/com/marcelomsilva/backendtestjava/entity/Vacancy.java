@@ -46,8 +46,8 @@ public class Vacancy {
         return parking;
     }
 
-    public void setAmountOccupied(Integer amountOccupied) {
-        this.amountOccupied = amountOccupied;
+    public void incrementAmountOccupied() {
+        this.amountOccupied++;
     }
 
     public Integer getAmountOccupied() {
