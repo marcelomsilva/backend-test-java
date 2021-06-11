@@ -2,6 +2,8 @@ package br.com.marcelomsilva.backendtestjava.entity;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.Arrays;
+import java.util.Set;
 
 @Entity
 @Table(name = "vehicle_control")
@@ -43,5 +45,13 @@ public class VehicleControl {
 
     public Instant getDeparture() {
         return departure;
+    }
+
+    public Type getVehicleType() {
+        return this.vehicle.getModel().getType();
+    }
+
+    public Set<Vacancy> getParkingVacancies() {
+        return this.vehicle.getParking().getVacancies();
     }
 }
