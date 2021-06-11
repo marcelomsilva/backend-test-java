@@ -20,6 +20,14 @@ public class Model {
     @JoinColumn(name = "type_id")
     private Type type;
 
+    public Model() {}
+
+    public Model(String name, Brand brand, Type type) {
+        this.name = name;
+        this.brand = brand;
+        this.type = type;
+    }
+
     public Long getId() {
         return id;
     }

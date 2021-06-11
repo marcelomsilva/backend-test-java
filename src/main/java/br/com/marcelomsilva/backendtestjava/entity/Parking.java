@@ -21,11 +21,11 @@ public class Parking {
     @JoinColumn(name = "address_id")
     private Address address;
 
-    @OneToMany(mappedBy = "parking", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "parking", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private Set<Phone> phones = new HashSet<Phone>();
 
     @OneToMany(mappedBy = "parking")
-    private Set<Vacancy> vacancies;
+    private Set<Vacancy> vacancies = new HashSet<Vacancy>();
 
 
     @OneToMany(mappedBy = "parking")
