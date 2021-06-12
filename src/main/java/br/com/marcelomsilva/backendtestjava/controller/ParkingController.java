@@ -33,4 +33,9 @@ public class ParkingController {
     public ResponseEntity<ParkingDto> getById(@PathVariable Long id) {
         return service.getById(id);
     }
+
+    @PutMapping("/disable/{id}")
+    public ResponseEntity<ParkingDto> disableById(@PathVariable Long id) {
+        return service.disableById(id);
+    }
 }

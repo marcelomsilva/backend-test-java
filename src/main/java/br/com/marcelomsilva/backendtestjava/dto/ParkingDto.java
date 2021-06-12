@@ -13,6 +13,7 @@ public class ParkingDto {
     private String cnpj;
     private Address address;
     private Set<PhoneDto> phones;
+    private Boolean isActive;
 
     public ParkingDto(Parking parking) {
         this.id = parking.getId();
@@ -23,6 +24,7 @@ public class ParkingDto {
             this.phones = parking.getPhones().stream()
                     .map(p -> new PhoneDto(p))
                     .collect(Collectors.toSet());
+        this.isActive = parking.getIsActive();
     }
 
     public Long getId() {
@@ -43,5 +45,9 @@ public class ParkingDto {
 
     public Set<PhoneDto> getPhones() {
         return phones;
+    }
+
+    public Boolean getActive() {
+        return isActive;
     }
 }
