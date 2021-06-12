@@ -6,6 +6,8 @@ import br.com.marcelomsilva.backendtestjava.entity.VehicleControl;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.http.ResponseEntity;
 
+import java.util.Optional;
+
 public interface VehicleControlRepository extends CrudRepository<VehicleControl, Long> {
-    VehicleControl findByVehicleId(Long id);
+    Optional<VehicleControl> findByVehicleId(Long id);
 }

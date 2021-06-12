@@ -9,6 +9,9 @@ import br.com.marcelomsilva.backendtestjava.repository.VehicleControlRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.util.Optional;
+
 
 @Service
 public class VehicleControlServiceImpl implements VehicleControlService {
@@ -36,13 +39,23 @@ public class VehicleControlServiceImpl implements VehicleControlService {
 
     @Override
     public ResponseEntity<VehicleControlDto> terminate(VehicleControlDepartureForm form) {
-        VehicleControl vehicleControl = vehicleControlRepository.findByVehicleId(form.getVehicleId());
-        try {
-            vacancyService.decrementAmountOccupied(vehicleControl);
-            vehicleControl.setDeparture(form.getDeparture());
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
+        Optional<VehicleControl> vehicleControl = vehicleControlRepository.findByVehicleId(form.getVehicleId());
+        if(vehicleControl.isPresent()) {
+            try {
+                verifyDepartureIsAfterEntry(form.getDeparture(), vehicleControl.get().getEntry());
+                vacancyService.decrementAmountOccupied(vehicleControl.get());
+                vehicleControl.get().setDeparture(form.getDeparture());
+            } catch (Exception e) {
+                return ResponseEntity.badRequest().build();
+            }
+            return ResponseEntity.ok().body(new VehicleControlDto(vehicleControlRepository.save(vehicleControl.get())));
         }
-        return ResponseEntity.ok().body(new VehicleControlDto(vehicleControlRepository.save(vehicleControl)));
+        return ResponseEntity.badRequest().build();
+    }
+
+    private void verifyDepartureIsAfterEntry(Instant departure, Instant entry) throws Exception {
+        if(!departure.isAfter(entry)) {
+            throw new Exception("");
+        }
     }
 }
