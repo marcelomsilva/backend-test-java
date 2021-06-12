@@ -45,6 +45,14 @@ public class ParkingServiceImpl implements ParkingService {
     }
 
     @Override
+    public ResponseEntity<ParkingDto> disableById(Long id) {
+        Parking parking = verifyAndGetById(id);
+        parking.setIsActive(false);
+        parkingRepository.save(parking);
+        return ResponseEntity.ok(new ParkingDto(parking));
+    }
+
+    @Override
     public Parking verifyAndGetById(Long id) {
         Optional<Parking> optional = parkingRepository.findById(id);
         if(optional.isPresent())
