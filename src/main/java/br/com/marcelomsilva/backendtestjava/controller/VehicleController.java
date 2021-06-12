@@ -4,9 +4,7 @@ import br.com.marcelomsilva.backendtestjava.dto.VehicleDto;
 import br.com.marcelomsilva.backendtestjava.dto.form.VehicleForm;
 import br.com.marcelomsilva.backendtestjava.service.VehicleService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -24,5 +22,10 @@ public class VehicleController {
     @PostMapping
     public ResponseEntity<VehicleDto> create(@Valid VehicleForm form) {
         return service.create(form);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<VehicleDto> getById(@PathVariable Long id) {
+        return service.getById(id);
     }
 }
