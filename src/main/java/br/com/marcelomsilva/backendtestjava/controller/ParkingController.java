@@ -25,7 +25,12 @@ public class ParkingController {
     }
 
     @GetMapping()
-    public List<ParkingDto> get() {
-        return service.get();
+    public List<ParkingDto> getAll() {
+        return service.getAll();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ParkingDto> getById(@PathVariable Long id) {
+        return service.getById(id);
     }
 }

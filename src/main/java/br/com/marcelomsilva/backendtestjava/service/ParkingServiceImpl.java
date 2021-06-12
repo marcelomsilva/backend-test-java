@@ -34,9 +34,14 @@ public class ParkingServiceImpl implements ParkingService {
     }
 
     @Override
-    public List<ParkingDto> get() {
+    public List<ParkingDto> getAll() {
         List<Parking> list = (List<Parking>) parkingRepository.findAll();
         return list.stream().map(p -> new ParkingDto(p)).collect(Collectors.toList());
+    }
+
+    @Override
+    public ResponseEntity<ParkingDto> getById(Long id) {
+        return ResponseEntity.ok(new ParkingDto(verifyAndGetById(id)));
     }
 
     @Override
@@ -44,7 +49,7 @@ public class ParkingServiceImpl implements ParkingService {
         Optional<Parking> optional = parkingRepository.findById(id);
         if(optional.isPresent())
             return optional.get();
-        throw new NoSuchElementException("Estacionamento de veículo com id " + id + "não foi encontrado");
+        throw new NoSuchElementException("Estacionamento com id " + id + " não foi encontrado");
     }
 
 }
