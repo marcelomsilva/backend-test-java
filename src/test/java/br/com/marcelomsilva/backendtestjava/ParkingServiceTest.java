@@ -37,4 +37,11 @@ public class ParkingServiceTest {
         ResponseEntity<ParkingDto> parkingDtoResponseEntity = service.create(form);
         service.getById(parkingDtoResponseEntity.getBody().getId());
     }
+
+    @Test void disableById() {
+        ParkingForm form = new ParkingForm("Nome Teste", "123456", "123", "Rua Joao da Costa",
+                "321", "Sao Paulo", "SP", "Jardim Cruz", "", "12", "4234234");
+        Long parkingId = service.create(form).getBody().getId();
+        service.disableById(parkingId);
+    }
 }

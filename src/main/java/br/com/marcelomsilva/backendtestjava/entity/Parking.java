@@ -31,6 +31,8 @@ public class Parking {
     @OneToMany(mappedBy = "parking")
     private Set<Vehicle> vehicles;
 
+    private Boolean isActive;
+
     public Parking() {}
 
     public Parking(String name, String cnpj, Address address, Phone phone) {
@@ -38,6 +40,7 @@ public class Parking {
         this.cnpj = cnpj;
         this.address = address;
         this.addPhone(phone);
+        this.isActive = true;
     }
 
 
@@ -91,5 +94,13 @@ public class Parking {
 
     public void addVehicle(Vehicle vehicle) {
         this.vehicles.add(vehicle);
+    }
+
+    public void setIsActive(Boolean active) {
+        isActive = active;
+    }
+
+    public Boolean getIsActive() {
+        return isActive;
     }
 }
