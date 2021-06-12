@@ -19,5 +19,5 @@ insert into address(zipcode, public_place, number, city, state, neighborhood, co
 
 insert into parking(name, cnpj, address_id, is_active) values('Estacionamento Teste', '7584856680011', 1, true);
 
-insert into vehicle(plate, parking_id, model_id) values('ytd215e', 1, 1);
-insert into vehicle(plate, parking_id, model_id) values('gege54', 1, 6);
+insert into vehicle(plate, parking_id, model_id, is_active) values('ytd215e', 1, 1, true);
+insert into vehicle(plate, parking_id, model_id, is_active) values('gege54', 1, 6, true);

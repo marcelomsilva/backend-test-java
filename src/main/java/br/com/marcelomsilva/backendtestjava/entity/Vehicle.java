@@ -51,7 +51,11 @@ public class Vehicle {
         return model;
     }
 
-    public Boolean getActive() {
+    public void setIsActive(Boolean active) {
+        isActive = active;
+    }
+
+    public Boolean getIsActive() {
         return isActive;
     }
 

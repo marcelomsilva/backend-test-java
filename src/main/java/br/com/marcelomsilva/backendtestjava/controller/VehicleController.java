@@ -28,4 +28,14 @@ public class VehicleController {
     public ResponseEntity<VehicleDto> getById(@PathVariable Long id) {
         return service.getById(id);
     }
+
+    @PutMapping("/disable/{id}")
+    public ResponseEntity<VehicleDto> disableById(@PathVariable Long id) {
+        return service.disableById(id);
+    }
+
+    @PutMapping("/enable/{id}")
+    public ResponseEntity<VehicleDto> enableById(@PathVariable Long id) {
+        return service.enableById(id);
+    }
 }

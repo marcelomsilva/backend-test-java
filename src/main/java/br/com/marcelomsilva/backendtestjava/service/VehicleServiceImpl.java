@@ -1,6 +1,5 @@
 package br.com.marcelomsilva.backendtestjava.service;
 
-import br.com.marcelomsilva.backendtestjava.dto.ParkingDto;
 import br.com.marcelomsilva.backendtestjava.dto.VehicleDto;
 import br.com.marcelomsilva.backendtestjava.dto.form.VehicleForm;
 import br.com.marcelomsilva.backendtestjava.entity.Vehicle;
@@ -32,6 +31,22 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     public ResponseEntity<VehicleDto> getById(Long id) {
         return ResponseEntity.ok(new VehicleDto(verifyAndGetById(id)));
+    }
+
+    @Override
+    public ResponseEntity<VehicleDto> disableById(Long id) {
+        Vehicle vehicle = verifyAndGetById(id);
+        vehicle.setIsActive(false);
+        vehicleRepository.save(vehicle);
+        return ResponseEntity.ok(new VehicleDto(vehicle));
+    }
+
+    @Override
+    public ResponseEntity<VehicleDto> enableById(Long id) {
+        Vehicle vehicle = verifyAndGetById(id);
+        vehicle.setIsActive(true);
+        vehicleRepository.save(vehicle);
+        return ResponseEntity.ok(new VehicleDto(vehicle));
     }
 
     @Override
