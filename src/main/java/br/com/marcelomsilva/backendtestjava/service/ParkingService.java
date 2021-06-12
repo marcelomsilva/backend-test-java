@@ -13,6 +13,6 @@ public interface ParkingService {
     List<ParkingDto> getAll();
     Parking verifyAndGetById(Long id);
     ResponseEntity<ParkingDto> getById(Long id);
-
     ResponseEntity<ParkingDto> disableById(Long id);
+    ResponseEntity<ParkingDto> enableById(Long id);
 }

@@ -47,7 +47,7 @@ public class ParkingDto {
         return phones;
     }
 
-    public Boolean getActive() {
+    public Boolean getIsActive() {
         return isActive;
     }
 }
