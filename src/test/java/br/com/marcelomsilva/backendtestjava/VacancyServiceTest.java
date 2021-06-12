@@ -27,19 +27,21 @@ public class VacancyServiceTest {
     @Autowired
     VacancyServiceImpl service;
 
+    @Autowired
     @Mock
     VacancyRepository vacancyRepository;
 
     @Mock
+    @Autowired
     ParkingService parkingService;
 
     @Mock
+    @Autowired
     TypeService typeService;
 
     @BeforeEach
     public void beforeEach() {
         MockitoAnnotations.initMocks(this);
-        this.service = new VacancyServiceImpl(vacancyRepository, parkingService, typeService);
     }
 
     @Test
@@ -50,6 +52,13 @@ public class VacancyServiceTest {
 
     @Test
     public void incrementAmountOccupied() throws Exception {
+        this.service = new VacancyServiceImpl(vacancyRepository, parkingService, typeService);
+        VehicleControl vehicleControl = createVehicleControl();
+        service.incrementAmountOccupied(vehicleControl);
+        Mockito.verify(vacancyRepository).save(vehicleControl.getParkingVacancies().stream().findAny().get());
+    }
+
+    private VehicleControl createVehicleControl() {
         Address address = Mockito.mock(Address.class);
         Phone phone = Mockito.mock(Phone.class);
         Parking parking = new Parking("estacionamento", "123", address, phone);
@@ -59,9 +68,9 @@ public class VacancyServiceTest {
         Vacancy vacancy = new Vacancy(1, type, parking);
         Vehicle vehicle =  new Vehicle("DTE3432", parking, model);
         parking.addVacancy(vacancy);
-        VehicleControl vehicleControl = new VehicleControl(vehicle, Instant.now());
-        service.incrementAmountOccupied(vehicleControl);
-        Mockito.verify(vacancyRepository).save(vacancy);
+        return new VehicleControl(vehicle, Instant.now());
     }
+
+
 
 }
