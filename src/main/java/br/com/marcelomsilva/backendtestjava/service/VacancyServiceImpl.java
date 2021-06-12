@@ -58,8 +58,6 @@ public class VacancyServiceImpl implements VacancyService {
     }
 
     private Optional<Vacancy> getVacancyByTypeId(VehicleControl vehicleControl) {
-        System.out.println(vehicleControl.getVehicleType());
-        System.out.println(vehicleControl.getParkingVacancies());
         Type vehicleType = vehicleControl.getVehicleType();
         return vehicleControl.getParkingVacancies().stream()
                 .filter(v -> v.getType().getId() == vehicleType.getId())
