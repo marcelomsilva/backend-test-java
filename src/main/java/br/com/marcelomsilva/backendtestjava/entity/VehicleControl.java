@@ -1,6 +1,7 @@
 package br.com.marcelomsilva.backendtestjava.entity;
 
 import javax.persistence.*;
+import java.time.Duration;
 import java.time.Instant;
 import java.util.Set;
 
@@ -18,7 +19,7 @@ public class VehicleControl {
 
     private Instant entry;
     private Instant departure;
-    private Instant duration;
+    private Duration duration;
     private Boolean isCancelled;
 
     public VehicleControl() {}
@@ -49,11 +50,11 @@ public class VehicleControl {
         return departure;
     }
 
-    public void setDuration(Instant duration) {
+    public void setDuration(Duration duration) {
         this.duration = duration;
     }
 
-    public Instant getDuration() {
+    public Duration getDuration() {
         return duration;
     }
 

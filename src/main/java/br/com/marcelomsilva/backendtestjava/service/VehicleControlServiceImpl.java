@@ -8,6 +8,7 @@ import br.com.marcelomsilva.backendtestjava.repository.VehicleControlRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
 import java.time.Instant;
 import java.util.Optional;
 
@@ -44,6 +45,8 @@ public class VehicleControlServiceImpl implements VehicleControlService {
                 verifyDepartureIsAfterEntry(form.getDeparture(), vehicleControl.get().getEntry());
                 vacancyService.decrementAmountOccupied(vehicleControl.get());
                 vehicleControl.get().setDeparture(form.getDeparture());
+                Duration duration = Duration.between(vehicleControl.get().getEntry(), form.getDeparture());
+                vehicleControl.get().setDuration(duration);
             } catch (Exception e) {
                 return ResponseEntity.badRequest().build();
             }
