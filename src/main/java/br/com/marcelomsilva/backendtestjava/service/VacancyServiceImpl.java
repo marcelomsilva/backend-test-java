@@ -41,8 +41,19 @@ public class VacancyServiceImpl implements VacancyService {
             } else  {
                 throw new Exception("");
             }
-        } else {
-            //System.out.println("teste");
+        }
+    }
+
+    @Override
+    public void decrementAmountOccupied(VehicleControl vehicleControl) throws Exception {
+        Optional<Vacancy> vacancy = this.getVacancyByTypeId(vehicleControl);
+        if(vacancy.isPresent()) {
+            if (vacancy.get().getAmountOccupied() > 0) {
+                vacancy.get().decrementAmountOccupied();
+                vacancyRepository.save(vacancy.get());
+            } else  {
+                throw new Exception("");
+            }
         }
     }
 

@@ -53,21 +53,39 @@ public class VacancyServiceTest {
     @Test
     public void incrementAmountOccupied() throws Exception {
         this.service = new VacancyServiceImpl(vacancyRepository, parkingService, typeService);
-        VehicleControl vehicleControl = createVehicleControl();
+        VehicleControl vehicleControl = createVehicleControl(false);
         service.incrementAmountOccupied(vehicleControl);
         Mockito.verify(vacancyRepository).save(vehicleControl.getParkingVacancies().stream().findAny().get());
     }
 
-    private VehicleControl createVehicleControl() {
+    @Test
+    public void decrementAmountOccupied() throws Exception {
+        this.service = new VacancyServiceImpl(vacancyRepository, parkingService, typeService);
+        VehicleControl vehicleControl = createVehicleControl(true);
+        service.decrementAmountOccupied(vehicleControl);
+        Mockito.verify(vacancyRepository).save(vehicleControl.getParkingVacancies().stream().findAny().get());
+    }
+
+    private VehicleControl createVehicleControl(Boolean isOccupied) {
+        // Create Parking
         Address address = Mockito.mock(Address.class);
         Phone phone = Mockito.mock(Phone.class);
         Parking parking = new Parking("estacionamento", "123", address, phone);
+
+        // Create Model
         Brand brand = Mockito.mock(Brand.class);
         Type type = new Type("foo");
         Model model = new Model("teste", brand, type);
-        Vacancy vacancy = new Vacancy(1, type, parking);
+
+        // Create Vehicle
         Vehicle vehicle =  new Vehicle("DTE3432", parking, model);
+
+        // Create and set Vacancy
+        Vacancy vacancy = new Vacancy(1, type, parking);
+        if(isOccupied)
+            vacancy.incrementAmountOccupied();
         parking.addVacancy(vacancy);
+
         return new VehicleControl(vehicle, Instant.now());
     }
 

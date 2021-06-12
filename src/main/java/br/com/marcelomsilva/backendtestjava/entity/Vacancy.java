@@ -53,4 +53,8 @@ public class Vacancy {
     public Integer getAmountOccupied() {
         return amountOccupied;
     }
+
+    public void decrementAmountOccupied() {
+        this.amountOccupied--;
+    }
 }
