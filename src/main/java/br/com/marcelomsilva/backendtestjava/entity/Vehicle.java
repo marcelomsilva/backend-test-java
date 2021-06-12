@@ -24,12 +24,15 @@ public class Vehicle {
     @OneToMany(mappedBy = "vehicle")
     private List<VehicleControl> vehicleControls;
 
+    private Boolean isActive;
+
     public Vehicle() {}
 
     public Vehicle(String plate, Parking parking, Model model) {
         this.plate = plate;
         this.parking = parking;
         this.model = model;
+        this.isActive = true;
     }
 
     public Long getId() {
@@ -46,6 +49,10 @@ public class Vehicle {
 
     public Model getModel() {
         return model;
+    }
+
+    public Boolean getActive() {
+        return isActive;
     }
 
     public List<VehicleControl> getVehicleControls() {

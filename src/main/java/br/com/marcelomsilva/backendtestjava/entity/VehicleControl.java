@@ -2,7 +2,6 @@ package br.com.marcelomsilva.backendtestjava.entity;
 
 import javax.persistence.*;
 import java.time.Instant;
-import java.util.Arrays;
 import java.util.Set;
 
 @Entity
@@ -19,12 +18,15 @@ public class VehicleControl {
 
     private Instant entry;
     private Instant departure;
+    private Instant duration;
+    private Boolean isCancelled;
 
     public VehicleControl() {}
 
     public VehicleControl(Vehicle vehicle, Instant entry) {
         this.vehicle = vehicle;
         this.entry = entry;
+        this.isCancelled = false;
     }
 
     public Long getId() {
@@ -45,6 +47,18 @@ public class VehicleControl {
 
     public Instant getDeparture() {
         return departure;
+    }
+
+    public void setDuration(Instant duration) {
+        this.duration = duration;
+    }
+
+    public Instant getDuration() {
+        return duration;
+    }
+
+    public Boolean getCancelled() {
+        return isCancelled;
     }
 
     public Type getVehicleType() {
