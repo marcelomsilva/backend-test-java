@@ -9,4 +9,5 @@ public interface VehicleService {
 
     ResponseEntity<VehicleDto> create(VehicleForm form);
     Vehicle verifyAndGetById(Long id);
+    ResponseEntity<VehicleDto> getById(Long id);
 }
