@@ -7,6 +7,7 @@ import java.time.Instant;
 
 public class VehicleControlDto {
 
+    private Long id;
     private VehicleDto vehicle;
     private Instant entry;
     private Instant departure;
@@ -14,10 +15,15 @@ public class VehicleControlDto {
 
 
     public VehicleControlDto(VehicleControl vehicleControl) {
+        this.id = vehicleControl.getId();
         this.vehicle = new VehicleDto(vehicleControl.getVehicle());
         this.entry = vehicleControl.getEntry();
         this.departure = vehicleControl.getDeparture();
         this.duration = vehicleControl.getDuration();
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public VehicleDto getVehicle() {
