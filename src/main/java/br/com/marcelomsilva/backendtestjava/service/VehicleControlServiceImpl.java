@@ -3,6 +3,7 @@ package br.com.marcelomsilva.backendtestjava.service;
 import br.com.marcelomsilva.backendtestjava.dto.VehicleControlDto;
 import br.com.marcelomsilva.backendtestjava.dto.form.VehicleControlDepartureForm;
 import br.com.marcelomsilva.backendtestjava.dto.form.VehicleControlEntryForm;
+import br.com.marcelomsilva.backendtestjava.entity.Parking;
 import br.com.marcelomsilva.backendtestjava.entity.VehicleControl;
 import br.com.marcelomsilva.backendtestjava.repository.VehicleControlRepository;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 
@@ -55,9 +57,24 @@ public class VehicleControlServiceImpl implements VehicleControlService {
         return ResponseEntity.badRequest().build();
     }
 
+    @Override
+    public ResponseEntity<VehicleControlDto> cancelById(Long id) {
+        VehicleControl vehicleControl = verifyAndGetById(id);
+        vehicleControl.setIsCancelled(true);
+        vehicleControlRepository.save(vehicleControl);
+        return ResponseEntity.ok().body(new VehicleControlDto(vehicleControl));
+    }
+
     private void verifyDepartureIsAfterEntry(Instant departure, Instant entry) throws Exception {
         if(!departure.isAfter(entry)) {
             throw new Exception("");
         }
+    }
+
+    private VehicleControl verifyAndGetById(Long id) {
+        Optional<VehicleControl> optional = vehicleControlRepository.findById(id);
+        if(optional.isPresent())
+            return optional.get();
+        throw new NoSuchElementException("Controle de veículos com id " + id + " não foi encontrado");
     }
 }

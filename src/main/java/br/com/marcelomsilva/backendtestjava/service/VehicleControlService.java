@@ -9,4 +9,5 @@ public interface VehicleControlService {
 
     ResponseEntity<VehicleControlDto> create(VehicleControlEntryForm form);
     ResponseEntity<VehicleControlDto> terminate(VehicleControlDepartureForm form);
+    ResponseEntity<VehicleControlDto> cancelById(Long id);
 }

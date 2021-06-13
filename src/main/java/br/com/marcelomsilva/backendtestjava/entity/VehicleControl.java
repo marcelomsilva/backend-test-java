@@ -58,10 +58,6 @@ public class VehicleControl {
         return duration;
     }
 
-    public Boolean getCancelled() {
-        return isCancelled;
-    }
-
     public Type getVehicleType() {
         return this.vehicle.getModel().getType();
     }
@@ -69,4 +65,13 @@ public class VehicleControl {
     public Set<Vacancy> getParkingVacancies() {
         return this.vehicle.getParking().getVacancies();
     }
+
+    public void setIsCancelled(Boolean cancelled) {
+        isCancelled = cancelled;
+    }
+
+    public Boolean getCancelled() {
+        return isCancelled;
+    }
+
 }
