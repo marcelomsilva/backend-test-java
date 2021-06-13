@@ -15,6 +15,18 @@ public class PhoneCreateForm {
         this.parkingId = parkingId;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public Long getParkingId() {
+        return parkingId;
+    }
+
     public Phone convertToEntity(ParkingService parkingService) {
         return new Phone(code, number, parkingService.verifyAndGetById(parkingId));
     }

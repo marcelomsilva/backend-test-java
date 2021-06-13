@@ -6,6 +6,7 @@ import br.com.marcelomsilva.backendtestjava.dto.form.PhoneCreateForm;
 import br.com.marcelomsilva.backendtestjava.entity.Parking;
 import br.com.marcelomsilva.backendtestjava.entity.Phone;
 import br.com.marcelomsilva.backendtestjava.repository.PhoneRepository;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ public class PhoneServiceImpl implements PhoneService {
     PhoneRepository phoneRepository;
     ParkingService parkingService;
 
-    public PhoneServiceImpl(PhoneRepository phoneRepository, ParkingService parkingService) {
+    public PhoneServiceImpl(PhoneRepository phoneRepository, @Lazy ParkingService parkingService) {
         this.phoneRepository = phoneRepository;
         this.parkingService = parkingService;
     }
