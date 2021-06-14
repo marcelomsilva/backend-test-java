@@ -4,9 +4,7 @@ import br.com.marcelomsilva.backendtestjava.dto.PhoneDto;
 import br.com.marcelomsilva.backendtestjava.dto.form.PhoneCreateForm;
 import br.com.marcelomsilva.backendtestjava.service.PhoneService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -23,5 +21,10 @@ public class PhoneController {
     @PostMapping
     public ResponseEntity<PhoneDto> create(@Valid  PhoneCreateForm form) {
         return service.create(form);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<PhoneDto> deleteById(@PathVariable Long id) {
+        return service.deleteById(id);
     }
 }

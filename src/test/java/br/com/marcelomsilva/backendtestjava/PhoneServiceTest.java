@@ -38,9 +38,9 @@ public class PhoneServiceTest {
 
     @Test
     public void delete() {
-        ParkingForm parkingForm = new ParkingForm("Teste", "123454856", "123488", "Rua Joao da Costa 2",
-                "321", "Sao Paulo", "SP", "Jardim Cruz y", "", "1256", "4234234989");
+        ParkingForm parkingForm = new ParkingForm("Teste2", "54354", "123488535", "Rua Joao da ",
+                "321", "Sao Paulo", "SP", "Jardim ", "", "1256", "4234234989");
         parkingService.create(parkingForm).getBody();
-        service.deleteById(1L);
+        assertEquals(200, service.deleteById(1L).getStatusCodeValue());
     }
 }
