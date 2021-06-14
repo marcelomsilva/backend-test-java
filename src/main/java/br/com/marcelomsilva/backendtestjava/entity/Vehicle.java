@@ -2,6 +2,7 @@ package br.com.marcelomsilva.backendtestjava.entity;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "vehicle")
@@ -61,5 +62,18 @@ public class Vehicle {
 
     public List<VehicleControl> getVehicleControls() {
         return vehicleControls;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Vehicle vehicle = (Vehicle) o;
+        return plate.equals(vehicle.plate) && parking.equals(vehicle.parking) && model.equals(vehicle.model);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(plate, parking, model);
     }
 }
