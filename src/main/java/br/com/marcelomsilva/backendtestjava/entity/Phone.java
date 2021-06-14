@@ -1,6 +1,7 @@
 package br.com.marcelomsilva.backendtestjava.entity;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "phone")
@@ -32,8 +33,16 @@ public class Phone {
         return id;
     }
 
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     public String getCode() {
         return code;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     public String getNumber() {
@@ -46,5 +55,18 @@ public class Phone {
 
     public void setParking(Parking parking) {
         this.parking = parking;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Phone phone = (Phone) o;
+        return code.equals(phone.code) && number.equals(phone.number) && parking.equals(phone.parking);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(code, number, parking);
     }
 }

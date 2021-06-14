@@ -2,6 +2,7 @@ package br.com.marcelomsilva.backendtestjava.controller;
 
 import br.com.marcelomsilva.backendtestjava.dto.PhoneDto;
 import br.com.marcelomsilva.backendtestjava.dto.form.PhoneCreateForm;
+import br.com.marcelomsilva.backendtestjava.dto.form.PhoneUpdateForm;
 import br.com.marcelomsilva.backendtestjava.service.PhoneService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,5 +27,10 @@ public class PhoneController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<PhoneDto> deleteById(@PathVariable Long id) {
         return service.deleteById(id);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<PhoneDto> deleteById(@PathVariable Long id, PhoneUpdateForm form) {
+        return service.updateById(id, form);
     }
 }

@@ -2,6 +2,7 @@ package br.com.marcelomsilva.backendtestjava.service;
 
 import br.com.marcelomsilva.backendtestjava.dto.ParkingDto;
 import br.com.marcelomsilva.backendtestjava.dto.form.ParkingForm;
+import br.com.marcelomsilva.backendtestjava.dto.form.PhoneCreateForm;
 import br.com.marcelomsilva.backendtestjava.entity.Parking;
 import br.com.marcelomsilva.backendtestjava.entity.Phone;
 import br.com.marcelomsilva.backendtestjava.repository.ParkingRepository;
@@ -58,6 +59,17 @@ public class ParkingServiceImpl implements ParkingService {
         parking.setIsActive(true);
         parkingRepository.save(parking);
         return ResponseEntity.ok(new ParkingDto(parking));
+    }
+
+    @Override
+    public Phone addPhone(PhoneCreateForm form) {
+        Phone phone = form.convertToEntity(this);
+        Parking parking = verifyAndGetById(form.getParkingId());
+        parking.addPhone(phone);
+        parkingRepository.save(parking);
+        return parking.getPhones().stream()
+                .filter(p -> p.equals(phone))
+                .findFirst().get();
     }
 
     @Override

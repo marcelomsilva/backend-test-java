@@ -1,19 +1,16 @@
 package br.com.marcelomsilva.backendtestjava.service;
 
 import br.com.marcelomsilva.backendtestjava.dto.PhoneDto;
-import br.com.marcelomsilva.backendtestjava.dto.VacancyDto;
 import br.com.marcelomsilva.backendtestjava.dto.form.PhoneCreateForm;
+import br.com.marcelomsilva.backendtestjava.dto.form.PhoneUpdateForm;
 import br.com.marcelomsilva.backendtestjava.entity.Parking;
 import br.com.marcelomsilva.backendtestjava.entity.Phone;
 import br.com.marcelomsilva.backendtestjava.repository.PhoneRepository;
-import br.com.marcelomsilva.backendtestjava.repository.VehicleRepository;
-import org.springframework.beans.MethodInvocationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.IllegalTransactionStateException;
-import org.springframework.web.server.MethodNotAllowedException;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -21,9 +18,7 @@ import java.util.Optional;
 @Service
 public class PhoneServiceImpl implements PhoneService {
 
-    @Autowired
     PhoneRepository phoneRepository;
-
     ParkingService parkingService;
 
     public PhoneServiceImpl(PhoneRepository phoneRepository, @Lazy ParkingService parkingService) {
@@ -39,7 +34,8 @@ public class PhoneServiceImpl implements PhoneService {
 
     @Override
     public ResponseEntity<PhoneDto> create(PhoneCreateForm form) {
-        return ResponseEntity.ok().body(new PhoneDto(phoneRepository.save(form.convertToEntity(parkingService))));
+        Phone phone = parkingService.addPhone(form);
+        return ResponseEntity.ok().body(new PhoneDto(phone));
     }
 
     @Override
@@ -47,6 +43,15 @@ public class PhoneServiceImpl implements PhoneService {
         Phone phone = verifyAndGetById(id);
         verifySizePhoneList(phone.getParking().getId());
         phoneRepository.deleteById(id);
+        return ResponseEntity.ok().body(new PhoneDto(phone));
+    }
+
+    @Override
+    public ResponseEntity<PhoneDto> updateById(Long id, PhoneUpdateForm form) {
+        Phone phone = verifyAndGetById(id);
+        phone.setCode(form.getCode());
+        phone.setNumber(form.getNumber());
+        phoneRepository.save(phone);
         return ResponseEntity.ok().body(new PhoneDto(phone));
     }
 
@@ -59,6 +64,7 @@ public class PhoneServiceImpl implements PhoneService {
 
     private void verifySizePhoneList(Long parkingId) {
         Parking parking = parkingService.verifyAndGetById(parkingId);
+        System.out.println(parking.getPhones().size());
         if(parking.getPhones().size() == 1) {
             throw new IllegalTransactionStateException("Esse estacionamento deve ter mais de um Telefone cadastrado");
         }
