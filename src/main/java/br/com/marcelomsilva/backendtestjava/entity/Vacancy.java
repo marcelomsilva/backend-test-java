@@ -1,6 +1,7 @@
 package br.com.marcelomsilva.backendtestjava.entity;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "vacancy")
@@ -56,5 +57,18 @@ public class Vacancy {
 
     public void decrementAmountOccupied() {
         this.amountOccupied--;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Vacancy vacancy = (Vacancy) o;
+        return type.equals(vacancy.type) && parking.equals(vacancy.parking);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, parking);
     }
 }
