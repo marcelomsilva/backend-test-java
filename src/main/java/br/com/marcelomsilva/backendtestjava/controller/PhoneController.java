@@ -30,7 +30,7 @@ public class PhoneController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PhoneDto> deleteById(@PathVariable Long id, PhoneUpdateForm form) {
+    public ResponseEntity<PhoneDto> update(@PathVariable Long id, PhoneUpdateForm form) {
         return service.updateById(id, form);
     }
 }
