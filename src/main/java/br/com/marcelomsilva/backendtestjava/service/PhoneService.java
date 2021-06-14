@@ -9,4 +9,5 @@ import org.springframework.http.ResponseEntity;
 public interface PhoneService {
     void addParkingId(Phone phone, Parking parking);
     ResponseEntity<PhoneDto> create(PhoneCreateForm form);
+    ResponseEntity<PhoneDto> deleteById(Long id);
 }
