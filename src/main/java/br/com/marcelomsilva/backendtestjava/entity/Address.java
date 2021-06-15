@@ -1,5 +1,7 @@
 package br.com.marcelomsilva.backendtestjava.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,13 +12,23 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonProperty("cep")
     private String zipcode;
+
+    @JsonProperty("logradouro")
     private String publicPlace;
+
     private String number;
-    private String city;
-    private String state;
-    private String neighborhood;
     private String complement;
+
+    @JsonProperty("localidade")
+    private String city;
+
+    @JsonProperty("uf")
+    private String state;
+
+    @JsonProperty("bairro")
+    private String neighborhood;
 
     public Address() { }
 
