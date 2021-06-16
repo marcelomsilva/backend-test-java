@@ -12,4 +12,5 @@ public interface PhoneService {
     ResponseEntity<PhoneDto> create(PhoneCreateForm form);
     ResponseEntity<PhoneDto> deleteById(Long id);
     ResponseEntity<PhoneDto> updateById(Long id, PhoneUpdateForm form);
+    Phone build(String code, String number);
 }

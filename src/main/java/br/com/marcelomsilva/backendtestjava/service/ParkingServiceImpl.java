@@ -30,9 +30,9 @@ public class ParkingServiceImpl implements ParkingService {
 
     @Override
     public ResponseEntity<ParkingDto> create(ParkingForm form) {
-        Phone phone = new Phone(form.getPhoneCode(), form.getPhoneNumber());
-        Address address = addressService.build(form.getZipCode(), form.getPublicPlace(),
-                form.getNumber(), form.getCity(), form.getState(), form.getNeighborhood(), form.getComplement());
+        Phone phone = phoneService.build(form.getPhoneCode(), form.getPhoneNumber());
+        Address address = addressService.build(form.getZipCode(), form.getPublicPlace(), form.getNumber(),
+                form.getCity(), form.getState(), form.getNeighborhood(), form.getComplement());
         Parking parking = form.convertToEntity(address, phone);
         parkingRepository.save(parking);
         phoneService.addParkingId(phone, parking);

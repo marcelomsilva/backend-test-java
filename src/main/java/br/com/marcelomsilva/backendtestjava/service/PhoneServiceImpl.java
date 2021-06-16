@@ -55,6 +55,11 @@ public class PhoneServiceImpl implements PhoneService {
         return ResponseEntity.ok().body(new PhoneDto(phone));
     }
 
+    @Override
+    public Phone build(String code, String number) {
+        return new Phone(code, number);
+    }
+
     private Phone verifyAndGetById(Long id) {
         Optional<Phone> optional = phoneRepository.findById(id);
         if(optional.isPresent())
