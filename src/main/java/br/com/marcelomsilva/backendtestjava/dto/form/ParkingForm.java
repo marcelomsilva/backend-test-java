@@ -15,12 +15,22 @@ public class ParkingForm {
     @NotNull @NotEmpty
     private final String cnpj;
 
+    @NotNull @NotEmpty
     private final String zipCode;
+
+    @NotNull @NotEmpty
     private final String publicPlace;
-    private final String number;
+
+    @NotNull @NotEmpty
     private final String city;
+
+    @NotNull @NotEmpty
     private final String state;
+
+    @NotNull @NotEmpty
     private final String neighborhood;
+
+    private final String number;
     private final String complement;
 
     private final String phoneCode;

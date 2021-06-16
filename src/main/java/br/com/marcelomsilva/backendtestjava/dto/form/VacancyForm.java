@@ -4,10 +4,17 @@ import br.com.marcelomsilva.backendtestjava.entity.Vacancy;
 import br.com.marcelomsilva.backendtestjava.service.ParkingService;
 import br.com.marcelomsilva.backendtestjava.service.TypeService;
 
+import javax.validation.constraints.Min;
+
 public class VacancyForm {
 
+    @Min(0)
     private Integer amount;
+
+    @Min(0)
     private Long typeId;
+
+    @Min(0)
     private Long parkingId;
 
     public VacancyForm(Integer amount, Long typeId, Long parkingId) {

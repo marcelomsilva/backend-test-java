@@ -3,11 +3,14 @@ package br.com.marcelomsilva.backendtestjava.dto.form;
 import br.com.marcelomsilva.backendtestjava.entity.VehicleControl;
 import br.com.marcelomsilva.backendtestjava.service.VehicleService;
 
+import javax.validation.constraints.Min;
 import java.time.Instant;
 
 public class VehicleControlEntryForm {
 
+    @Min(0)
     private Long vehicleId;
+
     private Instant entry;
 
     public VehicleControlEntryForm(Long vehicleId, Instant entry) {
