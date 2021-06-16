@@ -20,7 +20,7 @@ public class ParkingForm {
     private final String number;
     private final String city;
     private final String state;
-    private final String neighbothood;
+    private final String neighborhood;
     private final String complement;
 
     private final String phoneCode;
@@ -28,7 +28,7 @@ public class ParkingForm {
 
 
     public ParkingForm(String name, String cnpj, String zipCode, String publicPlace,
-                       String number, String city, String state, String neighbothood,
+                       String number, String city, String state, String neighborhood,
                        String complement, String phoneCode, String phoneNumber) {
         this.name = name;
         this.cnpj = cnpj;
@@ -37,7 +37,7 @@ public class ParkingForm {
         this.number = number;
         this.city = city;
         this.state = state;
-        this.neighbothood = neighbothood;
+        this.neighborhood = neighborhood;
         this.complement = complement;
         this.phoneCode = phoneCode;
         this.phoneNumber = phoneNumber;
@@ -71,8 +71,8 @@ public class ParkingForm {
         return state;
     }
 
-    public String getNeighbothood() {
-        return neighbothood;
+    public String getNeighborhood() {
+        return neighborhood;
     }
 
     public String getComplement() {
@@ -87,7 +87,7 @@ public class ParkingForm {
         return phoneNumber;
     }
 
-    public Parking convertToEntity(Phone phone) {
-        return new Parking(name, cnpj, new Address(zipCode, publicPlace, number, city, state, neighbothood, complement), phone);
+    public Parking convertToEntity(Address address,Phone phone) {
+        return new Parking(name, cnpj, address, phone);
     }
 }

@@ -4,5 +4,6 @@ import br.com.marcelomsilva.backendtestjava.entity.Address;
 
 public interface AddressService {
 
-    Address getByZipCode(String zipcode);
+    Address getByZipCodeApiViaCep(String zipcode);
+    Address build(String zipcode, String publicPlace, String number, String city, String state, String neighborhood, String complement);
 }
