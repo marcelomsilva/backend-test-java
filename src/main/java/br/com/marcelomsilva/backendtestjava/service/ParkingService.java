@@ -18,4 +18,5 @@ public interface ParkingService {
     ResponseEntity<ParkingDto> disableById(Long id);
     ResponseEntity<ParkingDto> enableById(Long id);
     Phone addPhone(PhoneCreateForm form);
+    ResponseEntity<ParkingDto> update(Long id, ParkingForm form);
 }

@@ -1,5 +1,6 @@
 package br.com.marcelomsilva.backendtestjava.service;
 
+import br.com.marcelomsilva.backendtestjava.dto.form.ParkingForm;
 import br.com.marcelomsilva.backendtestjava.entity.Address;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -22,6 +23,38 @@ public class AddressServiceImpl implements AddressService {
             return address;
         }
         return new Address(zipcode, publicPlace, number, city, state, neighborhood, complement);
+    }
+
+    @Override
+    public Address update(Address address, ParkingForm form) {
+        Address newAddress = getByZipCodeApiViaCep(form.getZipCode());
+        if(newAddress.getZipcode() != null) {
+            newAddress = setAttributes(address, newAddress);
+            newAddress.setNumber(form.getNumber());
+            newAddress.setComplement(form.getComplement());
+            return newAddress;
+        }
+        return setAttributes(address, form);
+    }
+
+    private Address setAttributes(Address address, Address newAddress) {
+        address.setZipcode(newAddress.getZipcode());
+        address.setPublicPlace(newAddress.getPublicPlace());
+        address.setCity(newAddress.getCity());
+        address.setState(newAddress.getState());
+        address.setNeighborhood(newAddress.getNeighborhood());
+        return address;
+    }
+
+    private Address setAttributes(Address address, ParkingForm form) {
+        address.setZipcode(form.getZipCode());
+        address.setPublicPlace(form.getPublicPlace());
+        address.setCity(form.getCity());
+        address.setState(form.getState());
+        address.setNeighborhood(form.getNeighborhood());
+        address.setNumber(form.getNumber());
+        address.setComplement(form.getComplement());
+        return address;
     }
 
     private boolean verifyZipCodeFormat(String zipcode) {

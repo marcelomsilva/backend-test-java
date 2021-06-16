@@ -78,6 +78,17 @@ public class ParkingServiceImpl implements ParkingService {
     }
 
     @Override
+    public ResponseEntity<ParkingDto> update(Long id, ParkingForm form) {
+        Parking parking = verifyAndGetById(id);
+        parking.setCnpj(form.getCnpj());
+        parking.setName(form.getName());
+        Address address = addressService.update(parking.getAddress(), form);
+        parking.setAddress(address);
+        parkingRepository.save(parking);
+        return ResponseEntity.ok(new ParkingDto(parking));
+    }
+
+    @Override
     public Parking verifyAndGetById(Long id) {
         Optional<Parking> optional = parkingRepository.findById(id);
         if(optional.isPresent())
