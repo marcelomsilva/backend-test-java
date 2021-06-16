@@ -2,6 +2,7 @@ package br.com.marcelomsilva.backendtestjava.controller;
 
 import br.com.marcelomsilva.backendtestjava.dto.ParkingDto;
 import br.com.marcelomsilva.backendtestjava.dto.form.ParkingForm;
+import br.com.marcelomsilva.backendtestjava.dto.form.ParkingUpdateForm;
 import br.com.marcelomsilva.backendtestjava.service.ParkingService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -43,4 +44,10 @@ public class ParkingController {
     public ResponseEntity<ParkingDto> enableById(@PathVariable Long id) {
         return service.enableById(id);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ParkingDto> update(@PathVariable Long id, @Valid ParkingUpdateForm form) {
+        return service.update(id, form);
+    }
+
 }

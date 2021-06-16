@@ -2,6 +2,7 @@ package br.com.marcelomsilva.backendtestjava.service;
 
 import br.com.marcelomsilva.backendtestjava.dto.ParkingDto;
 import br.com.marcelomsilva.backendtestjava.dto.form.ParkingForm;
+import br.com.marcelomsilva.backendtestjava.dto.form.ParkingUpdateForm;
 import br.com.marcelomsilva.backendtestjava.dto.form.PhoneCreateForm;
 import br.com.marcelomsilva.backendtestjava.entity.Address;
 import br.com.marcelomsilva.backendtestjava.entity.Parking;
@@ -78,7 +79,7 @@ public class ParkingServiceImpl implements ParkingService {
     }
 
     @Override
-    public ResponseEntity<ParkingDto> update(Long id, ParkingForm form) {
+    public ResponseEntity<ParkingDto> update(Long id, ParkingUpdateForm form) {
         Parking parking = verifyAndGetById(id);
         parking.setCnpj(form.getCnpj());
         parking.setName(form.getName());

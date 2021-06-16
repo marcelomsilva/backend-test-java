@@ -1,6 +1,7 @@
 package br.com.marcelomsilva.backendtestjava.service;
 
 import br.com.marcelomsilva.backendtestjava.dto.form.ParkingForm;
+import br.com.marcelomsilva.backendtestjava.dto.form.ParkingUpdateForm;
 import br.com.marcelomsilva.backendtestjava.entity.Address;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -26,7 +27,7 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public Address update(Address address, ParkingForm form) {
+    public Address update(Address address, ParkingUpdateForm form) {
         Address newAddress = getByZipCodeApiViaCep(form.getZipCode());
         if(newAddress.getZipcode() != null) {
             newAddress = setAttributes(address, newAddress);
@@ -46,7 +47,7 @@ public class AddressServiceImpl implements AddressService {
         return address;
     }
 
-    private Address setAttributes(Address address, ParkingForm form) {
+    private Address setAttributes(Address address, ParkingUpdateForm form) {
         address.setZipcode(form.getZipCode());
         address.setPublicPlace(form.getPublicPlace());
         address.setCity(form.getCity());

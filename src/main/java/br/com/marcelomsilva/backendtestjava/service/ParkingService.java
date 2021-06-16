@@ -2,6 +2,7 @@ package br.com.marcelomsilva.backendtestjava.service;
 
 import br.com.marcelomsilva.backendtestjava.dto.ParkingDto;
 import br.com.marcelomsilva.backendtestjava.dto.form.ParkingForm;
+import br.com.marcelomsilva.backendtestjava.dto.form.ParkingUpdateForm;
 import br.com.marcelomsilva.backendtestjava.dto.form.PhoneCreateForm;
 import br.com.marcelomsilva.backendtestjava.entity.Parking;
 import br.com.marcelomsilva.backendtestjava.entity.Phone;
@@ -18,5 +19,5 @@ public interface ParkingService {
     ResponseEntity<ParkingDto> disableById(Long id);
     ResponseEntity<ParkingDto> enableById(Long id);
     Phone addPhone(PhoneCreateForm form);
-    ResponseEntity<ParkingDto> update(Long id, ParkingForm form);
+    ResponseEntity<ParkingDto> update(Long id, ParkingUpdateForm form);
 }
