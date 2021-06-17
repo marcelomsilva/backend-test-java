@@ -1,17 +1,23 @@
 package br.com.marcelomsilva.backendtestjava.entity;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "parking")
-public class Parking {
+public class Parking implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String email;
+    private String password;
     private String name;
 
     @Column(unique = true)
@@ -43,6 +49,16 @@ public class Parking {
         this.isActive = true;
     }
 
+    public Parking(String name, String cnpj, String email, String password, Address address, Phone phone) {
+        this.name = name;
+        this.cnpj = cnpj;
+        this.email = email;
+        this.password = password;
+        this.address = address;
+        this.addPhone(phone);
+        this.isActive = true;
+    }
+
 
     public Long getId() {
         return id;
@@ -58,6 +74,10 @@ public class Parking {
 
     public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public String getCnpj() {
@@ -114,5 +134,40 @@ public class Parking {
 
     public Boolean getIsActive() {
         return isActive;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

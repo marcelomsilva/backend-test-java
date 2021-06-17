@@ -15,6 +15,7 @@ public class ParkingForm {
     @NotNull @NotEmpty
     private final String cnpj;
 
+
     @NotNull @NotEmpty
     private final String zipCode;
 

@@ -5,4 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface ParkingRepository extends CrudRepository<Parking, Long> {
 
+    Parking findByEmail(String email);
 }

@@ -9,6 +9,9 @@ import br.com.marcelomsilva.backendtestjava.entity.Parking;
 import br.com.marcelomsilva.backendtestjava.entity.Phone;
 import br.com.marcelomsilva.backendtestjava.repository.ParkingRepository;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,7 +20,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class ParkingServiceImpl implements ParkingService {
+public class ParkingServiceImpl implements ParkingService, UserDetailsService {
 
     final ParkingRepository parkingRepository;
     final PhoneService phoneService;
@@ -97,4 +100,11 @@ public class ParkingServiceImpl implements ParkingService {
         throw new NoSuchElementException("Estacionamento com id " + id + " não foi encontrado");
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Parking parking = parkingRepository.findByEmail(email);
+        if(parking == null)
+            throw new UsernameNotFoundException("Usuário não encontrado");
+        return parking;
+    }
 }
