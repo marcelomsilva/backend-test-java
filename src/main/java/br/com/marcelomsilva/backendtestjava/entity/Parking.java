@@ -16,9 +16,17 @@ public class Parking implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
     private String email;
+
     private String password;
     private String name;
+
+    @ManyToMany
+    @JoinTable(name = "parking_role",
+            joinColumns = @JoinColumn(name = "parking_id", referencedColumnName = "email"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "name"))
+    private Set<Role> role;
 
     @Column(unique = true)
     private String cnpj;
@@ -134,6 +142,10 @@ public class Parking implements UserDetails {
 
     public Boolean getIsActive() {
         return isActive;
+    }
+
+    public Set<Role> getRole() {
+        return role;
     }
 
     @Override

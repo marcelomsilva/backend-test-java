@@ -19,5 +19,8 @@ insert into address(zipcode, public_place, number, city, state, neighborhood, co
 
 insert into parking(name, cnpj, email, password, address_id, is_active) values('Estacionamento Teste', '7584856680011', 'teste@email.com', '$2y$12$Gw9SqJ0P8Wu0v7cBfmCCleRdmtVvjh3IMKUM3VPWIeDDveTa7v9ma',1, true);
 
+insert into role(name) values('ROLE_USER');
+insert into parking_role(parking_id, role_id) values ('teste@email.com', 'ROLE_USER');
+
 insert into vehicle(plate, parking_id, model_id, is_active) values('ytd215e', 1, 1, true);
 insert into vehicle(plate, parking_id, model_id, is_active) values('gege54', 1, 6, true);
