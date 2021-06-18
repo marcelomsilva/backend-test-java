@@ -1,8 +1,21 @@
 package br.com.marcelomsilva.backendtestjava;
 
+import br.com.marcelomsilva.backendtestjava.dto.VacancyDto;
+import br.com.marcelomsilva.backendtestjava.dto.VehicleDto;
+import br.com.marcelomsilva.backendtestjava.dto.form.VacancyForm;
 import br.com.marcelomsilva.backendtestjava.dto.form.VehicleControlEntryForm;
+import br.com.marcelomsilva.backendtestjava.dto.form.VehicleForm;
+import br.com.marcelomsilva.backendtestjava.entity.*;
+import br.com.marcelomsilva.backendtestjava.repository.ParkingRepository;
+import br.com.marcelomsilva.backendtestjava.service.ParkingService;
+import br.com.marcelomsilva.backendtestjava.service.VacancyService;
 import br.com.marcelomsilva.backendtestjava.service.VehicleControlService;
+import br.com.marcelomsilva.backendtestjava.service.VehicleService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -16,8 +29,27 @@ public class VehicleControlServiceTest {
     @Autowired
     VehicleControlService service;
 
+    //@Mock
+    @Autowired
+    VehicleService vehicleService;
+
+    @Autowired
+    VacancyService vacancyService;
+
+    @Autowired
+    ParkingRepository parkingRepository;
+
     @Test
     public void create() {
-        assertEquals(200, service.create(new VehicleControlEntryForm(1L, Instant.now())).getStatusCodeValue());
+        // Create Parking
+        Address address = Mockito.mock(Address.class);
+        Phone phone = Mockito.mock(Phone.class);
+        Parking parking = new Parking("estacionamento", "123", "email", "password",address, phone);
+        parkingRepository.save(parking);
+
+        VehicleForm form = new VehicleForm("drwew48", parking.getId(), 1L);
+        VehicleDto vehicle = vehicleService.create(form).getBody();
+        vacancyService.create(new VacancyForm(10, 2L, parking.getId())).getBody();
+        assertEquals(200, service.create(new VehicleControlEntryForm(vehicle.getId(), Instant.now())).getStatusCodeValue());
     }
 }

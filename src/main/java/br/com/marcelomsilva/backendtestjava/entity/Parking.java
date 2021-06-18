@@ -38,7 +38,7 @@ public class Parking implements UserDetails {
     @OneToMany(mappedBy = "parking", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Phone> phones = new HashSet<Phone>();
 
-    @OneToMany(mappedBy = "parking")
+    @OneToMany(mappedBy = "parking", fetch = FetchType.EAGER)
     private Set<Vacancy> vacancies = new HashSet<Vacancy>();
 
 
@@ -48,14 +48,6 @@ public class Parking implements UserDetails {
     private Boolean isActive;
 
     public Parking() {}
-
-    public Parking(String name, String cnpj, Address address, Phone phone) {
-        this.name = name;
-        this.cnpj = cnpj;
-        this.address = address;
-        this.addPhone(phone);
-        this.isActive = true;
-    }
 
     public Parking(String name, String cnpj, String email, String password, Address address, Phone phone) {
         this.name = name;

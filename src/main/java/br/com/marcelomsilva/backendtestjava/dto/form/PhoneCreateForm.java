@@ -3,6 +3,7 @@ package br.com.marcelomsilva.backendtestjava.dto.form;
 import br.com.marcelomsilva.backendtestjava.entity.Phone;
 import br.com.marcelomsilva.backendtestjava.service.ParkingService;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -14,7 +15,7 @@ public class PhoneCreateForm {
     @NotNull @NotEmpty
     private String number;
 
-    @NotNull @NotEmpty
+    @Min(0)
     private Long parkingId;
 
     public PhoneCreateForm(String code, String number, Long parkingId) {

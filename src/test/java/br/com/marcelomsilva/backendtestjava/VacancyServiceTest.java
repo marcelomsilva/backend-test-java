@@ -70,7 +70,7 @@ public class VacancyServiceTest {
         // Create Parking
         Address address = Mockito.mock(Address.class);
         Phone phone = Mockito.mock(Phone.class);
-        Parking parking = new Parking("estacionamento", "123", address, phone);
+        Parking parking = new Parking("estacionamento", "123", "email", "password",address, phone);
 
         // Create Model
         Brand brand = Mockito.mock(Brand.class);

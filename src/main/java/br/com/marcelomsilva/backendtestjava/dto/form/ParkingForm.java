@@ -15,6 +15,11 @@ public class ParkingForm {
     @NotNull @NotEmpty
     private final String cnpj;
 
+    @NotNull @NotEmpty
+    private final String email;
+
+    @NotNull @NotEmpty
+    private final String password;
 
     @NotNull @NotEmpty
     private final String zipCode;
@@ -37,12 +42,13 @@ public class ParkingForm {
     private final String phoneCode;
     private final String phoneNumber;
 
-
-    public ParkingForm(String name, String cnpj, String zipCode, String publicPlace,
+    public ParkingForm(String name, String cnpj, String email, String password, String zipCode, String publicPlace,
                        String number, String city, String state, String neighborhood,
                        String complement, String phoneCode, String phoneNumber) {
         this.name = name;
         this.cnpj = cnpj;
+        this.email = email;
+        this.password = password;
         this.zipCode = zipCode;
         this.publicPlace = publicPlace;
         this.number = number;
@@ -60,6 +66,14 @@ public class ParkingForm {
 
     public String getCnpj() {
         return cnpj;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public String getZipCode() {
@@ -99,6 +113,6 @@ public class ParkingForm {
     }
 
     public Parking convertToEntity(Address address,Phone phone) {
-        return new Parking(name, cnpj, address, phone);
+        return new Parking(name, cnpj, email, password, address, phone);
     }
 }
