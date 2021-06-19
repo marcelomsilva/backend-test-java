@@ -55,7 +55,8 @@ public class VehicleControlServiceImpl implements VehicleControlService {
         return ResponseEntity.ok().body(new VehicleControlDto(vehicleControl));
     }
 
-    private Optional<VehicleControl> verifyVehicleHasPendingControl(Long vehicleId) {
+    @Override
+    public Optional<VehicleControl> verifyVehicleHasPendingControl(Long vehicleId) {
         vehicleService.verifyAndGetById(vehicleId);
         return vehicleControlRepository.findNotTerminatedByVehicleId(vehicleId);
     }

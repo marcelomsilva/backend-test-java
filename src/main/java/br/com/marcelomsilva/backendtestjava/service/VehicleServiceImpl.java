@@ -4,6 +4,7 @@ import br.com.marcelomsilva.backendtestjava.dto.VehicleDto;
 import br.com.marcelomsilva.backendtestjava.dto.form.VehicleForm;
 import br.com.marcelomsilva.backendtestjava.dto.form.VehicleUpdateForm;
 import br.com.marcelomsilva.backendtestjava.entity.Vehicle;
+import br.com.marcelomsilva.backendtestjava.entity.VehicleControl;
 import br.com.marcelomsilva.backendtestjava.repository.VehicleRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -17,11 +18,13 @@ public class VehicleServiceImpl implements VehicleService {
     final VehicleRepository vehicleRepository;
     final ParkingService parkingService;
     final ModelService modelService;
+    final VehicleControlService vehicleControlService;
 
-    public VehicleServiceImpl(VehicleRepository vehicleRepository, ParkingService parkingService, ModelService modelService) {
+    public VehicleServiceImpl(VehicleRepository vehicleRepository, ParkingService parkingService, ModelService modelService, VehicleControlService vehicleControlService) {
         this.vehicleRepository = vehicleRepository;
         this.parkingService = parkingService;
         this.modelService = modelService;
+        this.vehicleControlService = vehicleControlService;
     }
 
     @Override
@@ -52,11 +55,18 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     public ResponseEntity<VehicleDto> update(Long id, VehicleUpdateForm form) {
-        Vehicle vehicle = verifyAndGetById(id);
+        Vehicle vehicle = verifyHasPendingControl(id);
         vehicle.setPlate(form.getPlate());
         vehicle.setModel(modelService.verifyAndGetById(form.getModelId()));
         vehicleRepository.save(vehicle);
         return null;
+    }
+
+    private Vehicle verifyHasPendingControl(Long vehicleId) {
+        Optional<VehicleControl> vehicleControl = vehicleControlService.verifyVehicleHasPendingControl(vehicleId);
+        if(vehicleControl.isPresent())
+            throw new IllegalArgumentException("O veiculo nao pode estar com sainda pendente para realizar a atualizacao");
+        return verifyAndGetById(vehicleId);
     }
 
     @Override
