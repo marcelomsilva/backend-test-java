@@ -8,6 +8,8 @@ import br.com.marcelomsilva.backendtestjava.entity.Address;
 import br.com.marcelomsilva.backendtestjava.entity.Parking;
 import br.com.marcelomsilva.backendtestjava.entity.Phone;
 import br.com.marcelomsilva.backendtestjava.repository.ParkingRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -90,6 +92,12 @@ public class ParkingServiceImpl implements ParkingService, UserDetailsService {
         parking.setAddress(address);
         parkingRepository.save(parking);
         return ResponseEntity.ok(new ParkingDto(parking));
+    }
+
+    @Override
+    public Page<ParkingDto> getAllPages(PageRequest pageRequest) {
+        Page<Parking> parkings = parkingRepository.findAllPages(pageRequest);
+        return parkings.map(p -> new ParkingDto(p));
     }
 
     @Override

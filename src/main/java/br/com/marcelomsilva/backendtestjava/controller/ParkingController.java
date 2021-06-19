@@ -4,6 +4,8 @@ import br.com.marcelomsilva.backendtestjava.dto.ParkingDto;
 import br.com.marcelomsilva.backendtestjava.dto.form.ParkingForm;
 import br.com.marcelomsilva.backendtestjava.dto.form.ParkingUpdateForm;
 import br.com.marcelomsilva.backendtestjava.service.ParkingService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,6 +30,13 @@ public class ParkingController {
     @GetMapping()
     public List<ParkingDto> getAll() {
         return service.getAll();
+    }
+
+    @GetMapping("/pages")
+    public Page<ParkingDto> getAllPages(@RequestParam(value = "page") Integer page,
+                                        @RequestParam(value = "linesPerPage") Integer linesPerPage) {
+        PageRequest pageRequest = PageRequest.of(page, linesPerPage);
+        return service.getAllPages(pageRequest);
     }
 
     @GetMapping("/{id}")
