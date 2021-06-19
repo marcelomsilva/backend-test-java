@@ -49,7 +49,7 @@ public class VehicleControlServiceImpl implements VehicleControlService {
 
     @Override
     public ResponseEntity<VehicleControlDto> cancelById(Long id) {
-        VehicleControl vehicleControl = decrementIfExistAndNotTermined(id);
+        VehicleControl vehicleControl = decrementIfExistAndNotTerminated(id);
         vehicleControl.setIsCancelled(true);
         vehicleControlRepository.save(vehicleControl);
         return ResponseEntity.ok().body(new VehicleControlDto(vehicleControl));
@@ -78,9 +78,11 @@ public class VehicleControlServiceImpl implements VehicleControlService {
         }
     }
 
-    private VehicleControl decrementIfExistAndNotTermined(Long id) {
+    private VehicleControl decrementIfExistAndNotTerminated(Long id) {
         VehicleControl vehicleControl = verifyAndGetById(id);
-        if(vehicleControl.getDeparture() == null)
+        if(vehicleControl.getCancelled() == true)
+            throw new IllegalArgumentException("Esse controle de veículos já está cancelado");
+        if (vehicleControl.getDeparture() == null)
             vacancyService.decrementAmountOccupied(vehicleControl);
         return vehicleControl;
     }
