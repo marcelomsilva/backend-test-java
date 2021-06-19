@@ -47,6 +47,14 @@ public class VehicleControlServiceImpl implements VehicleControlService {
         return ResponseEntity.ok().body(new VehicleControlDto(vehicleControlRepository.save(vehicleControl)));
     }
 
+    @Override
+    public ResponseEntity<VehicleControlDto> cancelById(Long id) {
+        VehicleControl vehicleControl = decrementIfExistAndNotTermined(id);
+        vehicleControl.setIsCancelled(true);
+        vehicleControlRepository.save(vehicleControl);
+        return ResponseEntity.ok().body(new VehicleControlDto(vehicleControl));
+    }
+
     private Optional<VehicleControl> verifyVehicleHasPendingControl(Long vehicleId) {
         vehicleService.verifyAndGetById(vehicleId);
         return vehicleControlRepository.findNotTerminatedByVehicleId(vehicleId);
@@ -64,18 +72,17 @@ public class VehicleControlServiceImpl implements VehicleControlService {
         throw new IllegalArgumentException("Esse veículo nao tem nenhuma saida pendente");
     }
 
-    @Override
-    public ResponseEntity<VehicleControlDto> cancelById(Long id) {
-        VehicleControl vehicleControl = verifyAndGetById(id);
-        vehicleControl.setIsCancelled(true);
-        vehicleControlRepository.save(vehicleControl);
-        return ResponseEntity.ok().body(new VehicleControlDto(vehicleControl));
-    }
-
     private void verifyDepartureIsAfterEntry(Instant departure, Instant entry) {
         if(!departure.isAfter(entry)) {
             throw new IllegalArgumentException("O horário de saída deve maior que o horário de entrada");
         }
+    }
+
+    private VehicleControl decrementIfExistAndNotTermined(Long id) {
+        VehicleControl vehicleControl = verifyAndGetById(id);
+        if(vehicleControl.getDeparture() == null)
+            vacancyService.decrementAmountOccupied(vehicleControl);
+        return vehicleControl;
     }
 
     private VehicleControl verifyAndGetById(Long id) {
