@@ -30,6 +30,7 @@ public class VehicleControlServiceImpl implements VehicleControlService {
 
     @Override
     public ResponseEntity<VehicleControlDto> create(VehicleControlEntryForm form) {
+        vehicleService.verifyAndGetById(form.getVehicleId());
         verifyVehicleHasPendingControl(form.getVehicleId());
         VehicleControl vehicleControl = form.convertToEntity(vehicleService);
         vacancyService.incrementAmountOccupied(vehicleControl);
@@ -47,7 +48,8 @@ public class VehicleControlServiceImpl implements VehicleControlService {
 
     @Override
     public ResponseEntity<VehicleControlDto> terminate(VehicleControlDepartureForm form) {
-        Optional<VehicleControl> vehicleControl = vehicleControlRepository.findByVehicleId(form.getVehicleId());
+        vehicleService.verifyAndGetById(form.getVehicleId());
+        Optional<VehicleControl> vehicleControl = vehicleControlRepository.findNotTerminatedByVehicleId(form.getVehicleId());
         if(vehicleControl.isPresent()) {
             verifyDepartureIsAfterEntry(form.getDeparture(), vehicleControl.get().getEntry());
             vacancyService.decrementAmountOccupied(vehicleControl.get());
@@ -56,7 +58,7 @@ public class VehicleControlServiceImpl implements VehicleControlService {
             vehicleControl.get().setDuration(duration);
             return ResponseEntity.ok().body(new VehicleControlDto(vehicleControlRepository.save(vehicleControl.get())));
         }
-        return ResponseEntity.badRequest().build();
+        throw new NoSuchElementException("Esse veículo não tem nenhuma saída pendente");
     }
 
     @Override
