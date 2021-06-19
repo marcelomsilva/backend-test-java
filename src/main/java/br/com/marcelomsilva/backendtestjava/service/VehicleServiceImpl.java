@@ -2,6 +2,7 @@ package br.com.marcelomsilva.backendtestjava.service;
 
 import br.com.marcelomsilva.backendtestjava.dto.VehicleDto;
 import br.com.marcelomsilva.backendtestjava.dto.form.VehicleForm;
+import br.com.marcelomsilva.backendtestjava.dto.form.VehicleUpdateForm;
 import br.com.marcelomsilva.backendtestjava.entity.Vehicle;
 import br.com.marcelomsilva.backendtestjava.repository.VehicleRepository;
 import org.springframework.http.ResponseEntity;
@@ -47,6 +48,15 @@ public class VehicleServiceImpl implements VehicleService {
         vehicle.setIsActive(true);
         vehicleRepository.save(vehicle);
         return ResponseEntity.ok(new VehicleDto(vehicle));
+    }
+
+    @Override
+    public ResponseEntity<VehicleDto> update(Long id, VehicleUpdateForm form) {
+        Vehicle vehicle = verifyAndGetById(id);
+        vehicle.setPlate(form.getPlate());
+        vehicle.setModel(modelService.verifyAndGetById(form.getModelId()));
+        vehicleRepository.save(vehicle);
+        return null;
     }
 
     @Override

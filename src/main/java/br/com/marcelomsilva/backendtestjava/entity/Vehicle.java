@@ -40,12 +40,20 @@ public class Vehicle {
         return id;
     }
 
+    public void setPlate(String plate) {
+        this.plate = plate;
+    }
+
     public String getPlate() {
         return plate;
     }
 
     public Parking getParking() {
         return parking;
+    }
+
+    public void setModel(Model model) {
+        this.model = model;
     }
 
     public Model getModel() {
