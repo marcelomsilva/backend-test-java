@@ -21,6 +21,6 @@ public class TypeServiceImpl implements TypeService {
         Optional<Type> optionalType = typeRepository.findById(id);
         if(optionalType.isPresent())
             return optionalType.get();
-        throw new NoSuchElementException("Tipo de veículo com id " + id + "não foi encontrado");
+        throw new NoSuchElementException("Tipo de veículo com id " + id + " não foi encontrado");
     }
 }

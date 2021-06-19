@@ -65,9 +65,9 @@ public class VehicleControlServiceImpl implements VehicleControlService {
         return ResponseEntity.ok().body(new VehicleControlDto(vehicleControl));
     }
 
-    private void verifyDepartureIsAfterEntry(Instant departure, Instant entry) throws Exception {
+    private void verifyDepartureIsAfterEntry(Instant departure, Instant entry) {
         if(!departure.isAfter(entry)) {
-            throw new Exception("");
+            throw new IllegalArgumentException("O horário de saída deve maior que o horário de entrada");
         }
     }
 

@@ -32,27 +32,27 @@ public class VacancyServiceImpl implements VacancyService {
     }
 
     @Override
-    public void incrementAmountOccupied(VehicleControl vehicleControl) throws Exception {
+    public void incrementAmountOccupied(VehicleControl vehicleControl) {
         Optional<Vacancy> vacancy = this.getVacancyByTypeId(vehicleControl);
         if(vacancy.isPresent()) {
             if (vacancy.get().getAmountOccupied() < vacancy.get().getAmount()) {
                 vacancy.get().incrementAmountOccupied();
                 vacancyRepository.save(vacancy.get());
             } else  {
-                throw new Exception("");
+                throw new IllegalArgumentException("Não há nenhuma vaga disponível");
             }
         }
     }
 
     @Override
-    public void decrementAmountOccupied(VehicleControl vehicleControl) throws Exception {
+    public void decrementAmountOccupied(VehicleControl vehicleControl) {
         Optional<Vacancy> vacancy = this.getVacancyByTypeId(vehicleControl);
         if(vacancy.isPresent()) {
             if (vacancy.get().getAmountOccupied() > 0) {
                 vacancy.get().decrementAmountOccupied();
                 vacancyRepository.save(vacancy.get());
             } else  {
-                throw new Exception("");
+                throw new IllegalArgumentException("Não há nenhuma vaga ocupada");
             }
         }
     }
