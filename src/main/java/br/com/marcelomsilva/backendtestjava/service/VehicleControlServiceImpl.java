@@ -30,9 +30,19 @@ public class VehicleControlServiceImpl implements VehicleControlService {
 
     @Override
     public ResponseEntity<VehicleControlDto> create(VehicleControlEntryForm form) {
+        verifyVehicleHasPendingControl(form.getVehicleId());
         VehicleControl vehicleControl = form.convertToEntity(vehicleService);
         vacancyService.incrementAmountOccupied(vehicleControl);
         return ResponseEntity.ok().body(new VehicleControlDto(vehicleControlRepository.save(vehicleControl)));
+    }
+
+    private void verifyVehicleHasPendingControl(Long vehicleId) {
+        if(vehicleControlRepository.findAll().stream()
+                .filter(vc -> vc.getVehicle().getId() == vehicleId &&
+                        vc.getDeparture() == null &&
+                        vc.getCancelled() == false)
+                .count() > 0)
+            throw new IllegalArgumentException("Esse veículo tem uma entrada pendente");
     }
 
     @Override
