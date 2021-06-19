@@ -30,35 +30,38 @@ public class VehicleControlServiceImpl implements VehicleControlService {
 
     @Override
     public ResponseEntity<VehicleControlDto> create(VehicleControlEntryForm form) {
-        vehicleService.verifyAndGetById(form.getVehicleId());
-        verifyVehicleHasPendingControl(form.getVehicleId());
+        verifyVehicleHasPendingEntry(form.getVehicleId());
         VehicleControl vehicleControl = form.convertToEntity(vehicleService);
         vacancyService.incrementAmountOccupied(vehicleControl);
         return ResponseEntity.ok().body(new VehicleControlDto(vehicleControlRepository.save(vehicleControl)));
     }
 
-    private void verifyVehicleHasPendingControl(Long vehicleId) {
-        if(vehicleControlRepository.findAll().stream()
-                .filter(vc -> vc.getVehicle().getId() == vehicleId &&
-                        vc.getDeparture() == null &&
-                        vc.getCancelled() == false)
-                .count() > 0)
+    @Override
+    public ResponseEntity<VehicleControlDto> terminate(VehicleControlDepartureForm form) { vehicleService.verifyAndGetById(form.getVehicleId());
+        VehicleControl vehicleControl = verifyVehicleHasPendingDeparture(form.getVehicleId());
+        verifyDepartureIsAfterEntry(form.getDeparture(), vehicleControl.getEntry());
+        vacancyService.decrementAmountOccupied(vehicleControl);
+        vehicleControl.setDeparture(form.getDeparture());
+        Duration duration = Duration.between(vehicleControl.getEntry(), form.getDeparture());
+        vehicleControl.setDuration(duration);
+        return ResponseEntity.ok().body(new VehicleControlDto(vehicleControlRepository.save(vehicleControl)));
+    }
+
+    private Optional<VehicleControl> verifyVehicleHasPendingControl(Long vehicleId) {
+        vehicleService.verifyAndGetById(vehicleId);
+        return vehicleControlRepository.findNotTerminatedByVehicleId(vehicleId);
+    }
+
+    private void verifyVehicleHasPendingEntry(Long vehicleId) {
+        if(verifyVehicleHasPendingControl(vehicleId).isPresent())
             throw new IllegalArgumentException("Esse veículo tem uma entrada pendente");
     }
 
-    @Override
-    public ResponseEntity<VehicleControlDto> terminate(VehicleControlDepartureForm form) {
-        vehicleService.verifyAndGetById(form.getVehicleId());
-        Optional<VehicleControl> vehicleControl = vehicleControlRepository.findNotTerminatedByVehicleId(form.getVehicleId());
-        if(vehicleControl.isPresent()) {
-            verifyDepartureIsAfterEntry(form.getDeparture(), vehicleControl.get().getEntry());
-            vacancyService.decrementAmountOccupied(vehicleControl.get());
-            vehicleControl.get().setDeparture(form.getDeparture());
-            Duration duration = Duration.between(vehicleControl.get().getEntry(), form.getDeparture());
-            vehicleControl.get().setDuration(duration);
-            return ResponseEntity.ok().body(new VehicleControlDto(vehicleControlRepository.save(vehicleControl.get())));
-        }
-        throw new NoSuchElementException("Esse veículo não tem nenhuma saída pendente");
+    private VehicleControl verifyVehicleHasPendingDeparture(Long vehicleId) {
+        Optional<VehicleControl> vehicleControl = verifyVehicleHasPendingControl(vehicleId);
+        if(vehicleControl.isPresent())
+            return vehicleControl.get();
+        throw new IllegalArgumentException("Esse veículo nao tem nenhuma saida pendente");
     }
 
     @Override
