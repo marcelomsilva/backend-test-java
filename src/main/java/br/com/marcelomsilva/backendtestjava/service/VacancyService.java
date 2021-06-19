@@ -8,6 +8,6 @@ import org.springframework.http.ResponseEntity;
 public interface VacancyService {
 
     ResponseEntity<VacancyDto> create(VacancyForm form);
-    void incrementAmountOccupied(VehicleControl vehicleControl) throws Exception;
-    void decrementAmountOccupied(VehicleControl vehicleControl) throws Exception;
+    void incrementAmountOccupied(VehicleControl vehicleControl) throws IllegalArgumentException;
+    void decrementAmountOccupied(VehicleControl vehicleControl);
 }

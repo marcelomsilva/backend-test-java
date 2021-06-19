@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 
 public interface VehicleControlService {
 
-    ResponseEntity<VehicleControlDto> create(VehicleControlEntryForm form);
-    ResponseEntity<VehicleControlDto> terminate(VehicleControlDepartureForm form);
+    ResponseEntity<VehicleControlDto> create(VehicleControlEntryForm form) throws IllegalArgumentException;
+    ResponseEntity<VehicleControlDto> terminate(VehicleControlDepartureForm form) throws IllegalArgumentException;
     ResponseEntity<VehicleControlDto> cancelById(Long id);
 }

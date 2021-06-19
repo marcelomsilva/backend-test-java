@@ -31,11 +31,7 @@ public class VehicleControlServiceImpl implements VehicleControlService {
     @Override
     public ResponseEntity<VehicleControlDto> create(VehicleControlEntryForm form) {
         VehicleControl vehicleControl = form.convertToEntity(vehicleService);
-        try {
-            vacancyService.incrementAmountOccupied(vehicleControl);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
-        }
+        vacancyService.incrementAmountOccupied(vehicleControl);
         return ResponseEntity.ok().body(new VehicleControlDto(vehicleControlRepository.save(vehicleControl)));
     }
 
@@ -43,15 +39,11 @@ public class VehicleControlServiceImpl implements VehicleControlService {
     public ResponseEntity<VehicleControlDto> terminate(VehicleControlDepartureForm form) {
         Optional<VehicleControl> vehicleControl = vehicleControlRepository.findByVehicleId(form.getVehicleId());
         if(vehicleControl.isPresent()) {
-            try {
-                verifyDepartureIsAfterEntry(form.getDeparture(), vehicleControl.get().getEntry());
-                vacancyService.decrementAmountOccupied(vehicleControl.get());
-                vehicleControl.get().setDeparture(form.getDeparture());
-                Duration duration = Duration.between(vehicleControl.get().getEntry(), form.getDeparture());
-                vehicleControl.get().setDuration(duration);
-            } catch (Exception e) {
-                return ResponseEntity.badRequest().build();
-            }
+            verifyDepartureIsAfterEntry(form.getDeparture(), vehicleControl.get().getEntry());
+            vacancyService.decrementAmountOccupied(vehicleControl.get());
+            vehicleControl.get().setDeparture(form.getDeparture());
+            Duration duration = Duration.between(vehicleControl.get().getEntry(), form.getDeparture());
+            vehicleControl.get().setDuration(duration);
             return ResponseEntity.ok().body(new VehicleControlDto(vehicleControlRepository.save(vehicleControl.get())));
         }
         return ResponseEntity.badRequest().build();

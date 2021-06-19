@@ -26,9 +26,12 @@ public class HandlerException {
         return new ErrorDto(exception.getMessage());
     }
 
+
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
-    @ExceptionHandler({IllegalArgumentException.class, IllegalTransactionStateException.class})
-    public ErrorDto illegalArgumentException(NoSuchElementException exception) {
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ErrorDto illegalArgumentException(IllegalArgumentException exception) {
+        System.out.println("Teste");
+        System.out.println(exception.getMessage());
         return new ErrorDto(exception.getMessage());
     }
 
