@@ -66,6 +66,10 @@ public class VehicleControl {
         return this.vehicle.getParking().getVacancies();
     }
 
+    public Parking getParking() {
+        return this.vehicle.getParking();
+    }
+
     public void setIsCancelled(Boolean cancelled) {
         isCancelled = cancelled;
     }

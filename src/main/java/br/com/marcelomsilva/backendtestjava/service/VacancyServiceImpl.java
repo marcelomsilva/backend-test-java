@@ -33,35 +33,31 @@ public class VacancyServiceImpl implements VacancyService {
 
     @Override
     public void incrementAmountOccupied(VehicleControl vehicleControl) {
-        Optional<Vacancy> vacancy = this.getVacancyByTypeId(vehicleControl);
-        if(vacancy.isPresent()) {
-            if (vacancy.get().getAmountOccupied() < vacancy.get().getAmount()) {
-                vacancy.get().incrementAmountOccupied();
-                vacancyRepository.save(vacancy.get());
-            } else  {
-                throw new IllegalArgumentException("Não há nenhuma vaga disponível");
-            }
+        Vacancy vacancy = this.getVacancyByTypeId(vehicleControl);
+        if (vacancy.getAmountOccupied() < vacancy.getAmount()) {
+            vacancy.incrementAmountOccupied();
+            vacancyRepository.save(vacancy);
+        } else  {
+            throw new IllegalArgumentException("Não há nenhuma vaga disponível");
         }
     }
 
     @Override
     public void decrementAmountOccupied(VehicleControl vehicleControl) {
-        Optional<Vacancy> vacancy = this.getVacancyByTypeId(vehicleControl);
-        if(vacancy.isPresent()) {
-            if (vacancy.get().getAmountOccupied() > 0) {
-                vacancy.get().decrementAmountOccupied();
-                vacancyRepository.save(vacancy.get());
-            } else  {
-                throw new IllegalArgumentException("Não há nenhuma vaga ocupada");
-            }
+        Vacancy vacancy = this.getVacancyByTypeId(vehicleControl);
+        if (vacancy.getAmountOccupied() > 0) {
+            vacancy.decrementAmountOccupied();
+            vacancyRepository.save(vacancy);
+        } else  {
+            throw new IllegalArgumentException("Não há nenhuma vaga ocupada");
         }
     }
 
-    private Optional<Vacancy> getVacancyByTypeId(VehicleControl vehicleControl) {
-        Type vehicleType = vehicleControl.getVehicleType();
-        return vehicleControl.getParkingVacancies().stream()
-                .filter(v -> v.getType().getId() == vehicleType.getId())
-                .findFirst();
+    private Vacancy getVacancyByTypeId(VehicleControl vehicleControl) {
+        Optional<Vacancy> optionalVacancy = vacancyRepository.findParkingVacancyByTypeId(vehicleControl.getParking().getId(), vehicleControl.getVehicleType().getId());
+        if(optionalVacancy.isPresent())
+            return optionalVacancy.get();
+        throw new IllegalArgumentException("Não há vagas para esse tipo de veículo");
     }
 
 }
