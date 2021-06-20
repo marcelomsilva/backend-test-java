@@ -1,6 +1,7 @@
 package br.com.marcelomsilva.backendtestjava.entity;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "model")
@@ -56,4 +57,16 @@ public class Model {
         return type;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Model model = (Model) o;
+        return name.equals(model.name) && brand.equals(model.brand) && type.equals(model.type);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, brand, type);
+    }
 }
