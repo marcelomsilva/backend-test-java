@@ -2,6 +2,7 @@ package br.com.marcelomsilva.backendtestjava.controller;
 
 import br.com.marcelomsilva.backendtestjava.dto.VehicleDto;
 import br.com.marcelomsilva.backendtestjava.dto.form.VehicleForm;
+import br.com.marcelomsilva.backendtestjava.dto.form.VehicleUpdateForm;
 import br.com.marcelomsilva.backendtestjava.service.VehicleService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,5 +38,10 @@ public class VehicleController {
     @PutMapping("/enable/{id}")
     public ResponseEntity<VehicleDto> enableById(@PathVariable Long id) {
         return service.enableById(id);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<VehicleDto> update(@PathVariable Long id, @Valid VehicleUpdateForm form) {
+        return service.update(id, form);
     }
 }

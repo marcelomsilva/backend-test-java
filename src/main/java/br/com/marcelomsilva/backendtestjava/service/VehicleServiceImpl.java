@@ -5,6 +5,7 @@ import br.com.marcelomsilva.backendtestjava.dto.form.VehicleForm;
 import br.com.marcelomsilva.backendtestjava.dto.form.VehicleUpdateForm;
 import br.com.marcelomsilva.backendtestjava.entity.Vehicle;
 import br.com.marcelomsilva.backendtestjava.entity.VehicleControl;
+import br.com.marcelomsilva.backendtestjava.repository.VehicleControlRepository;
 import br.com.marcelomsilva.backendtestjava.repository.VehicleRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -18,13 +19,13 @@ public class VehicleServiceImpl implements VehicleService {
     final VehicleRepository vehicleRepository;
     final ParkingService parkingService;
     final ModelService modelService;
-    final VehicleControlService vehicleControlService;
+    final VehicleControlRepository vehicleControlRepository;
 
-    public VehicleServiceImpl(VehicleRepository vehicleRepository, ParkingService parkingService, ModelService modelService, VehicleControlService vehicleControlService) {
+    public VehicleServiceImpl(VehicleRepository vehicleRepository, ParkingService parkingService, ModelService modelService, VehicleControlRepository vehicleControlRepository) {
         this.vehicleRepository = vehicleRepository;
         this.parkingService = parkingService;
         this.modelService = modelService;
-        this.vehicleControlService = vehicleControlService;
+        this.vehicleControlRepository = vehicleControlRepository;
     }
 
     @Override
@@ -59,14 +60,15 @@ public class VehicleServiceImpl implements VehicleService {
         vehicle.setPlate(form.getPlate());
         vehicle.setModel(modelService.verifyAndGetById(form.getModelId()));
         vehicleRepository.save(vehicle);
-        return null;
+        return ResponseEntity.ok().body(new VehicleDto(vehicle));
     }
 
     private Vehicle verifyHasPendingControl(Long vehicleId) {
-        Optional<VehicleControl> vehicleControl = vehicleControlService.verifyVehicleHasPendingControl(vehicleId);
+        Vehicle vehicle = verifyAndGetById(vehicleId);
+        Optional<VehicleControl> vehicleControl =  vehicleControlRepository.findNotTerminatedByVehicleId(vehicleId);
         if(vehicleControl.isPresent())
             throw new IllegalArgumentException("O veiculo nao pode estar com sainda pendente para realizar a atualizacao");
-        return verifyAndGetById(vehicleId);
+        return vehicle;
     }
 
     @Override
