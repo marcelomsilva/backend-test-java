@@ -181,11 +181,11 @@ public class Parking implements UserDetails {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Parking parking = (Parking) o;
-        return name.equals(parking.name) && cnpj.equals(parking.cnpj);
+        return cnpj.equals(parking.cnpj);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, cnpj);
+        return Objects.hash(cnpj);
     }
 }
