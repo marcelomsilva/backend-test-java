@@ -1,6 +1,7 @@
 package br.com.marcelomsilva.backendtestjava.config.security;
 
 import br.com.marcelomsilva.backendtestjava.service.ParkingServiceImpl;
+import br.com.marcelomsilva.backendtestjava.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
 @Configuration
@@ -19,9 +21,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     final ParkingServiceImpl parkingService;
+    TokenService tokenService;
 
-    public SecurityConfiguration(ParkingServiceImpl parkingService) {
+    public SecurityConfiguration(ParkingServiceImpl parkingService, TokenService tokenService) {
         this.parkingService = parkingService;
+        this.tokenService = tokenService;
     }
 
     @Override
@@ -31,7 +35,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and().csrf().disable()
                 .headers().frameOptions().disable().and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and().addFilterBefore(new TokenFilter(tokenService), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override
