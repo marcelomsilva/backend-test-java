@@ -3,7 +3,9 @@ package br.com.marcelomsilva.backendtestjava.dto.form;
 import br.com.marcelomsilva.backendtestjava.entity.Address;
 import br.com.marcelomsilva.backendtestjava.entity.Parking;
 import br.com.marcelomsilva.backendtestjava.entity.Phone;
+import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -13,15 +15,18 @@ public class ParkingForm {
     private final String name;
 
     @NotNull @NotEmpty
+    @Length(min = 14, max = 14)
     private final String cnpj;
 
     @NotNull @NotEmpty
+    @Email(message = "Preencha com o formate xxxx@xxx.com")
     private final String email;
 
     @NotNull @NotEmpty
     private final String password;
 
     @NotNull @NotEmpty
+    @Length(min = 8, max = 8)
     private final String zipCode;
 
     @NotNull @NotEmpty
@@ -39,7 +44,10 @@ public class ParkingForm {
     private final String number;
     private final String complement;
 
+    @Length(min = 2, max = 2)
     private final String phoneCode;
+
+    @Length(min = 8, max = 9)
     private final String phoneNumber;
 
     public ParkingForm(String name, String cnpj, String email, String password, String zipCode, String publicPlace,
