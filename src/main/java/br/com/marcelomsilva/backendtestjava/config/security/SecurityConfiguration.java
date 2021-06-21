@@ -1,5 +1,6 @@
 package br.com.marcelomsilva.backendtestjava.config.security;
 
+import br.com.marcelomsilva.backendtestjava.repository.ParkingRepository;
 import br.com.marcelomsilva.backendtestjava.service.ParkingServiceImpl;
 import br.com.marcelomsilva.backendtestjava.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +22,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     final ParkingServiceImpl parkingService;
-    TokenService tokenService;
+    final TokenService tokenService;
+    final ParkingRepository parkingRepository;
 
-    public SecurityConfiguration(ParkingServiceImpl parkingService, TokenService tokenService) {
+    public SecurityConfiguration(ParkingServiceImpl parkingService, TokenService tokenService, ParkingRepository parkingRepository) {
         this.parkingService = parkingService;
         this.tokenService = tokenService;
+        this.parkingRepository = parkingRepository;
     }
 
     @Override
@@ -36,7 +39,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and().csrf().disable()
                 .headers().frameOptions().disable().and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().addFilterBefore(new TokenFilter(tokenService), UsernamePasswordAuthenticationFilter.class);
+                .and().addFilterBefore(new TokenFilter(tokenService, parkingRepository), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override

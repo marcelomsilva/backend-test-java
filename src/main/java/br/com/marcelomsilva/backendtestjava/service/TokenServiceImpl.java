@@ -41,4 +41,9 @@ public class TokenServiceImpl implements TokenService {
             return false;
         }
     }
+
+    @Override
+    public Long getUserToken(String token) {
+        return Long.parseLong(Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().getSubject());
+    }
 }
