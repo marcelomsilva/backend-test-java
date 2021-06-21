@@ -12,7 +12,7 @@ import java.util.Date;
 @Service
 public class TokenServiceImpl implements TokenService {
 
-    @Value("${jwt.expiration")
+    @Value("${jwt.expiration}")
     private String expiration;
 
     @Value("${jwt.secret}")
@@ -22,7 +22,7 @@ public class TokenServiceImpl implements TokenService {
     public String generateToken(Authentication authentication) {
         Parking user = (Parking) authentication.getPrincipal();
         Date today = new Date();
-        Date expirationDate = new Date(today.getTime() + expiration);
+        Date expirationDate = new Date(today.getTime() + Long.parseLong(expiration));
         return Jwts.builder()
                 .setIssuer("API Backend Test - FCamara")
                 .setSubject(user.getId().toString())
