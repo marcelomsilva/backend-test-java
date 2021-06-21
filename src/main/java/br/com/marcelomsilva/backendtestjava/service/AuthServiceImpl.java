@@ -1,5 +1,6 @@
 package br.com.marcelomsilva.backendtestjava.service;
 
+import br.com.marcelomsilva.backendtestjava.dto.TokenDto;
 import br.com.marcelomsilva.backendtestjava.dto.form.AuthForm;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,12 +23,12 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public ResponseEntity<?> login(AuthForm form) {
+    public ResponseEntity<TokenDto> login(AuthForm form) {
         UsernamePasswordAuthenticationToken dataLogin = form.convertToAuth();
         try {
             Authentication authentication = authManager.authenticate(dataLogin);
             String token = tokenService.generateToken(authentication);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok().body(new TokenDto(token, "Bearer"));
         } catch (AuthenticationException exception) {
             throw new UsernameNotFoundException("Login e senha incorretos");
         }
