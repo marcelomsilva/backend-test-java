@@ -1,6 +1,7 @@
 package br.com.marcelomsilva.backendtestjava.controller;
 
 import br.com.marcelomsilva.backendtestjava.dto.form.AuthForm;
+import br.com.marcelomsilva.backendtestjava.service.AuthService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,10 +14,14 @@ import javax.validation.Valid;
 @RequestMapping("/auth")
 public class AuthController {
 
-    @PostMapping
+    AuthService service;
+
+    public AuthController(AuthService service) {
+        this.service = service;
+    }
+
+    @PostMapping("/login")
     public ResponseEntity<?> auth(@RequestBody @Valid AuthForm form) {
-        System.out.println(form.getEmail());
-        System.out.println(form.getPassword());
-        return null;
+        return service.login(form);
     }
 }

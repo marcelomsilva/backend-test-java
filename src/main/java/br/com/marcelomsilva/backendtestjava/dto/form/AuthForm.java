@@ -1,5 +1,7 @@
 package br.com.marcelomsilva.backendtestjava.dto.form;
 
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -23,5 +25,9 @@ public class AuthForm {
 
     public String getPassword() {
         return password;
+    }
+
+    public UsernamePasswordAuthenticationToken convertToAuth() {
+        return new UsernamePasswordAuthenticationToken(email, password);
     }
 }

@@ -1,0 +1,34 @@
+package br.com.marcelomsilva.backendtestjava.service;
+
+import br.com.marcelomsilva.backendtestjava.entity.Parking;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Service;
+
+import java.util.Date;
+
+@Service
+public class TokenServiceImpl implements TokenService {
+
+    @Value("${jwt.expiration")
+    private String expiration;
+
+    @Value("${jwt.secret}")
+    private String secret;
+
+    @Override
+    public String generateToken(Authentication authentication) {
+        Parking user = (Parking) authentication.getPrincipal();
+        Date today = new Date();
+        Date expirationDate = new Date(today.getTime() + expiration);
+        return Jwts.builder()
+                .setIssuer("API Backend Test - FCamara")
+                .setSubject(user.getId().toString())
+                .setIssuedAt(today)
+                .setExpiration(expirationDate)
+                .signWith(SignatureAlgorithm.HS256, secret)
+                .compact();
+    }
+}
