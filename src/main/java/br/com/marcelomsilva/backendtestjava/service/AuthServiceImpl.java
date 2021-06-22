@@ -1,7 +1,7 @@
 package br.com.marcelomsilva.backendtestjava.service;
 
 import br.com.marcelomsilva.backendtestjava.dto.TokenDto;
-import br.com.marcelomsilva.backendtestjava.dto.form.AuthForm;
+import br.com.marcelomsilva.backendtestjava.dto.form.LoginForm;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,7 +23,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public ResponseEntity<TokenDto> login(AuthForm form) {
+    public ResponseEntity<TokenDto> login(LoginForm form) {
         UsernamePasswordAuthenticationToken dataLogin = form.convertToAuth();
         try {
             Authentication authentication = authManager.authenticate(dataLogin);

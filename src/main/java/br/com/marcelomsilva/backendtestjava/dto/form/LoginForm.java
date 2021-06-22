@@ -5,7 +5,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-public class AuthForm {
+public class LoginForm {
 
     @NotNull @NotEmpty
     private String email;
@@ -14,7 +14,7 @@ public class AuthForm {
     private String password;
 
 
-    public AuthForm(String email, String password) {
+    public LoginForm(String email, String password) {
         this.email = email;
         this.password = password;
     }
