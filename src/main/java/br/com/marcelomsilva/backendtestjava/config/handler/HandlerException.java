@@ -30,8 +30,6 @@ public class HandlerException {
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     @ExceptionHandler(IllegalArgumentException.class)
     public ErrorDto illegalArgumentException(IllegalArgumentException exception) {
-        System.out.println("Teste");
-        System.out.println(exception.getMessage());
         return new ErrorDto(exception.getMessage());
     }
 
