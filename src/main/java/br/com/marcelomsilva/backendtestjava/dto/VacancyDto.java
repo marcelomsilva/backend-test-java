@@ -9,14 +9,16 @@ public class VacancyDto {
     private Integer amount;
     private Integer amountOccupied;
     private Type type;
-    //private ParkingDto parking;
+    private Long parkingId;
+    private String parkingName;
 
     public VacancyDto(Vacancy vacancy) {
         this.id = vacancy.getId();
         this.amount = vacancy.getAmount();
         this.amountOccupied = vacancy.getAmountOccupied();
         this.type = vacancy.getType();
-        //this.parking = new ParkingDto(vacancy.getParking());
+        this.parkingId = vacancy.getParking().getId();
+        this.parkingName = vacancy.getParking().getName();
     }
 
     public Long getId() {
@@ -35,9 +37,11 @@ public class VacancyDto {
         return type;
     }
 
-    /*public ParkingDto getParking() {
-        return parking;
+    public Long getParkingId() {
+        return parkingId;
     }
 
-     */
+    public String getParkingName() {
+        return parkingName;
+    }
 }

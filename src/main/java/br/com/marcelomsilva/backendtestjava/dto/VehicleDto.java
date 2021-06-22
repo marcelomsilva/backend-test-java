@@ -7,16 +7,18 @@ public class VehicleDto {
 
     private Long id;
     private String plate;
-    private ParkingDto parking;
     private Model model;
     private Boolean isActive;
+    private Long parkingId;
+    private String parkingName;
 
     public VehicleDto(Vehicle vehicle) {
         this.id = vehicle.getId();
         this.plate = vehicle.getPlate();
-        this.parking = new ParkingDto(vehicle.getParking());
         this.model = vehicle.getModel();
         this.isActive = vehicle.getIsActive();
+        this.parkingId = vehicle.getParking().getId();
+        this.parkingName = vehicle.getParking().getName();
     }
 
     public Long getId() {
@@ -27,15 +29,19 @@ public class VehicleDto {
         return plate;
     }
 
-    public ParkingDto getParking() {
-        return parking;
-    }
-
     public Model getModel() {
         return model;
     }
 
     public Boolean getIsActive() {
         return isActive;
+    }
+
+    public Long getParkingId() {
+        return parkingId;
+    }
+
+    public String getParkingName() {
+        return parkingName;
     }
 }

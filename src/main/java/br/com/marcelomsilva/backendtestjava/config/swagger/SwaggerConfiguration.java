@@ -23,7 +23,7 @@ public class SwaggerConfiguration {
         return new ApiInfoBuilder()
                 .title("FCamara API REST")
                 .description("<h4>API Rest Desafio</h4>")
-                .version("0.8.0")
+                .version("0.9.0")
                 .build();
     }
 
