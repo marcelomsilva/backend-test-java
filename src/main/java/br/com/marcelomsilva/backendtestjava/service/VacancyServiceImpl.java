@@ -53,7 +53,7 @@ public class VacancyServiceImpl implements VacancyService {
         }
     }
 
-    private Vacancy getVacancyByTypeId(VehicleControl vehicleControl) {
+    public Vacancy getVacancyByTypeId(VehicleControl vehicleControl) {
         Optional<Vacancy> optionalVacancy = vacancyRepository.findParkingVacancyByTypeId(vehicleControl.getParking().getId(), vehicleControl.getVehicleType().getId());
         if(optionalVacancy.isPresent())
             return optionalVacancy.get();

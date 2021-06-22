@@ -2,7 +2,10 @@ package br.com.marcelomsilva.backendtestjava;
 
 import br.com.marcelomsilva.backendtestjava.dto.form.VacancyForm;
 import br.com.marcelomsilva.backendtestjava.entity.*;
+import br.com.marcelomsilva.backendtestjava.repository.ModelRepository;
+import br.com.marcelomsilva.backendtestjava.repository.ParkingRepository;
 import br.com.marcelomsilva.backendtestjava.repository.VacancyRepository;
+import br.com.marcelomsilva.backendtestjava.repository.VehicleRepository;
 import br.com.marcelomsilva.backendtestjava.service.ParkingService;
 import br.com.marcelomsilva.backendtestjava.service.TypeService;
 import br.com.marcelomsilva.backendtestjava.service.VacancyService;
@@ -20,6 +23,7 @@ import javax.validation.constraints.AssertTrue;
 import java.time.Instant;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 public class VacancyServiceTest {
@@ -28,12 +32,16 @@ public class VacancyServiceTest {
     VacancyServiceImpl service;
 
     @Autowired
-    @Mock
     VacancyRepository vacancyRepository;
 
-    @Mock
     @Autowired
-    ParkingService parkingService;
+    ModelRepository modelRepository;
+
+    @Autowired
+    VehicleRepository vehicleRepository;
+
+    @Autowired
+    ParkingRepository parkingRepository;
 
     @Mock
     @Autowired
@@ -52,39 +60,39 @@ public class VacancyServiceTest {
 
     @Test
     public void incrementAmountOccupied() throws Exception {
-        this.service = new VacancyServiceImpl(vacancyRepository, parkingService, typeService);
-        VehicleControl vehicleControl = createVehicleControl(false);
+        VehicleControl vehicleControl = createVehicleControl("increment");
         service.incrementAmountOccupied(vehicleControl);
-        Mockito.verify(vacancyRepository).save(vehicleControl.getParkingVacancies().stream().findAny().get());
+        assertEquals(1, service.getVacancyByTypeId(vehicleControl).getAmountOccupied());
     }
 
     @Test
     public void decrementAmountOccupied() throws Exception {
-        this.service = new VacancyServiceImpl(vacancyRepository, parkingService, typeService);
-        VehicleControl vehicleControl = createVehicleControl(true);
+        VehicleControl vehicleControl = createVehicleControl("decrement");
+        service.incrementAmountOccupied(vehicleControl);
         service.decrementAmountOccupied(vehicleControl);
-        Mockito.verify(vacancyRepository).save(vehicleControl.getParkingVacancies().stream().findAny().get());
+        assertEquals(0, service.getVacancyByTypeId(vehicleControl).getAmountOccupied());
     }
 
-    private VehicleControl createVehicleControl(Boolean isOccupied) {
+    private VehicleControl createVehicleControl(String option) {
         // Create Parking
         Address address = Mockito.mock(Address.class);
         Phone phone = Mockito.mock(Phone.class);
-        Parking parking = new Parking("estacionamento", "123", "email", "password",address, phone);
+        Parking parking = new Parking("estacionamento", "123"+option, "email"+option, "password",address, phone);
+        parkingRepository.save(parking).getId();
 
         // Create Model
         Brand brand = Mockito.mock(Brand.class);
-        Type type = new Type("foo");
-        Model model = new Model("teste", brand, type);
+        Type type = new Type("foo"+option);
+        Model model = new Model("teste"+option, brand, type);
+        modelRepository.save(model);
 
         // Create Vehicle
         Vehicle vehicle =  new Vehicle("DTE3432", parking, model);
+        vehicleRepository.save(vehicle);
 
         // Create and set Vacancy
         Vacancy vacancy = new Vacancy(1, type, parking);
-        if(isOccupied)
-            vacancy.incrementAmountOccupied();
-        parking.addVacancy(vacancy);
+        vacancyRepository.save(vacancy);
 
         return new VehicleControl(vehicle, Instant.now());
     }
