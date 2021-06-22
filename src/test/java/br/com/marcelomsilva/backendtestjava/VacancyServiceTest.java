@@ -43,10 +43,6 @@ public class VacancyServiceTest {
     @Autowired
     ParkingRepository parkingRepository;
 
-    @Mock
-    @Autowired
-    TypeService typeService;
-
     @BeforeEach
     public void beforeEach() {
         MockitoAnnotations.initMocks(this);
@@ -71,6 +67,12 @@ public class VacancyServiceTest {
         service.incrementAmountOccupied(vehicleControl);
         service.decrementAmountOccupied(vehicleControl);
         assertEquals(0, service.getVacancyByTypeId(vehicleControl).getAmountOccupied());
+    }
+
+    @Test
+    public void decrementAmountOccupiedException() throws Exception {
+        VehicleControl vehicleControl = createVehicleControl("decrementException");
+        assertThrows(IllegalArgumentException.class, () -> service.decrementAmountOccupied(vehicleControl));
     }
 
     private VehicleControl createVehicleControl(String option) {
