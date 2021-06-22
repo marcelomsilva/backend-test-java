@@ -23,7 +23,7 @@ public class Parking implements UserDetails {
     private String password;
     private String name;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "parking_role",
             joinColumns = @JoinColumn(name = "parking_id", referencedColumnName = "email"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "name"))
