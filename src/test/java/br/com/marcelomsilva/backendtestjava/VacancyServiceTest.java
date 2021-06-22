@@ -11,6 +11,7 @@ import br.com.marcelomsilva.backendtestjava.service.TypeService;
 import br.com.marcelomsilva.backendtestjava.service.VacancyService;
 import br.com.marcelomsilva.backendtestjava.service.VacancyServiceImpl;
 import com.sun.org.apache.xpath.internal.operations.Mod;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -50,7 +51,10 @@ public class VacancyServiceTest {
 
     @Test
     public void create() {
-        assertEquals(200, service.create(new VacancyForm(20, 1L, 1L)).getStatusCodeValue());
+        Long parkingId = createParking("create").getId();
+        Long typeId = createModel("create").getType().getId();
+        VacancyForm vacancyForm = new VacancyForm(1, typeId, parkingId);
+        assertEquals(200, service.create(vacancyForm).getStatusCodeValue());
     }
 
 
@@ -76,29 +80,34 @@ public class VacancyServiceTest {
     }
 
     private VehicleControl createVehicleControl(String option) {
-        // Create Parking
-        Address address = Mockito.mock(Address.class);
-        Phone phone = Mockito.mock(Phone.class);
-        Parking parking = new Parking("estacionamento", "123"+option, "email"+option, "password",address, phone);
-        parkingRepository.save(parking).getId();
-
-        // Create Model
-        Brand brand = Mockito.mock(Brand.class);
-        Type type = new Type("foo"+option);
-        Model model = new Model("teste"+option, brand, type);
-        modelRepository.save(model);
+        Parking parking = createParking(option);
+        Model model = createModel(option);
 
         // Create Vehicle
         Vehicle vehicle =  new Vehicle("DTE3432", parking, model);
         vehicleRepository.save(vehicle);
 
         // Create and set Vacancy
-        Vacancy vacancy = new Vacancy(1, type, parking);
+        Vacancy vacancy = new Vacancy(1, model.getType(), parking);
         vacancyRepository.save(vacancy);
 
         return new VehicleControl(vehicle, Instant.now());
     }
 
+    private Parking createParking(String option) {
+        Address address = Mockito.mock(Address.class);
+        Phone phone = Mockito.mock(Phone.class);
+        Parking parking = new Parking("estacionamento", "123"+ option, "email"+ option, "password",address, phone);
+        parkingRepository.save(parking).getId();
+        return parking;
+    }
 
+    private Model createModel(String option) {
+        Brand brand = Mockito.mock(Brand.class);
+        Type type = new Type("foo"+option);
+        Model model = new Model("teste"+option, brand, type);
+        modelRepository.save(model);
+        return model;
+    }
 
 }
