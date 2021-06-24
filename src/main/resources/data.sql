@@ -22,5 +22,9 @@ insert into parking(name, cnpj, email, password, address_id, is_active) values('
 insert into role(name) values('ROLE_USER');
 insert into parking_role(parking_id, role_id) values ('teste@email.com', 'ROLE_USER');
 
-insert into vehicle(plate, parking_id, model_id, is_active) values('ytd215e', 1, 1, true);
-insert into vehicle(plate, parking_id, model_id, is_active) values('gege54', 1, 6, true);
+insert into color(name) values('Preto');
+insert into color(name) values('Branco');
+insert into color(name) values('Cinza');
+
+insert into vehicle(plate, color_id, parking_id, model_id, is_active) values('ytd215e', 1, 1, 1, true);
+insert into vehicle(plate, color_id, parking_id, model_id, is_active) values('gege54', 3, 1, 6, true);

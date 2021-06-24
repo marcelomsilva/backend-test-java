@@ -84,7 +84,7 @@ public class VacancyServiceTest {
         Model model = createModel(option);
 
         // Create Vehicle
-        Vehicle vehicle =  new Vehicle("DTE3432", parking, model);
+        Vehicle vehicle =  new Vehicle("DTE3432",Mockito.mock(Color.class), parking, model);
         vehicleRepository.save(vehicle);
 
         // Create and set Vacancy

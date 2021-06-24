@@ -53,6 +53,14 @@ public class Vehicle {
         return plate;
     }
 
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
     public Parking getParking() {
         return parking;
     }
