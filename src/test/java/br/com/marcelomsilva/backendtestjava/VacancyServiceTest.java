@@ -2,10 +2,7 @@ package br.com.marcelomsilva.backendtestjava;
 
 import br.com.marcelomsilva.backendtestjava.dto.form.VacancyForm;
 import br.com.marcelomsilva.backendtestjava.entity.*;
-import br.com.marcelomsilva.backendtestjava.repository.ModelRepository;
-import br.com.marcelomsilva.backendtestjava.repository.ParkingRepository;
-import br.com.marcelomsilva.backendtestjava.repository.VacancyRepository;
-import br.com.marcelomsilva.backendtestjava.repository.VehicleRepository;
+import br.com.marcelomsilva.backendtestjava.repository.*;
 import br.com.marcelomsilva.backendtestjava.service.ParkingService;
 import br.com.marcelomsilva.backendtestjava.service.TypeService;
 import br.com.marcelomsilva.backendtestjava.service.VacancyService;
@@ -43,6 +40,9 @@ public class VacancyServiceTest {
 
     @Autowired
     ParkingRepository parkingRepository;
+
+    @Autowired
+    ColorRepository colorRepository;
 
     @BeforeEach
     public void beforeEach() {
@@ -82,9 +82,10 @@ public class VacancyServiceTest {
     private VehicleControl createVehicleControl(String option) {
         Parking parking = createParking(option);
         Model model = createModel(option);
+        Color color = colorRepository.save(new Color("Teste4"));
 
         // Create Vehicle
-        Vehicle vehicle =  new Vehicle("DTE3432",Mockito.mock(Color.class), parking, model);
+        Vehicle vehicle =  new Vehicle("DTE3432", color, parking, model);
         vehicleRepository.save(vehicle);
 
         // Create and set Vacancy
