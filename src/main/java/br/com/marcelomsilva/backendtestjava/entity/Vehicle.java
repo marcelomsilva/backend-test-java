@@ -15,6 +15,10 @@ public class Vehicle {
     private String plate;
 
     @ManyToOne
+    @JoinColumn(name = "color_id")
+    private Color color;
+
+    @ManyToOne
     @JoinColumn(name = "parking_id")
     private Parking parking;
 
@@ -29,8 +33,9 @@ public class Vehicle {
 
     public Vehicle() {}
 
-    public Vehicle(String plate, Parking parking, Model model) {
+    public Vehicle(String plate, Color color,Parking parking, Model model) {
         this.plate = plate;
+        this.color = color;
         this.parking = parking;
         this.model = model;
         this.isActive = true;

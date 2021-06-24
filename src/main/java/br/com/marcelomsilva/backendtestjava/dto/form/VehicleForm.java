@@ -1,6 +1,7 @@
 package br.com.marcelomsilva.backendtestjava.dto.form;
 
 import br.com.marcelomsilva.backendtestjava.entity.Vehicle;
+import br.com.marcelomsilva.backendtestjava.service.ColorService;
 import br.com.marcelomsilva.backendtestjava.service.ModelService;
 import br.com.marcelomsilva.backendtestjava.service.ParkingService;
 import org.hibernate.validator.constraints.Length;
@@ -39,7 +40,7 @@ public class VehicleForm {
         return modelId;
     }
 
-    public Vehicle convertToEntity(ParkingService parkingService, ModelService modelService) {
-        return new Vehicle(plate, parkingService.verifyAndGetById(parkingId), modelService.verifyAndGetById(modelId));
+    public Vehicle convertToEntity(ColorService colorService, ParkingService parkingService, ModelService modelService) {
+        return new Vehicle(plate, ,parkingService.verifyAndGetById(parkingId), modelService.verifyAndGetById(modelId));
     }
 }
