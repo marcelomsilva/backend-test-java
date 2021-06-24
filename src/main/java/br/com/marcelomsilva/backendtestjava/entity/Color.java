@@ -1,6 +1,7 @@
 package br.com.marcelomsilva.backendtestjava.entity;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "color")
@@ -14,8 +15,7 @@ public class Color {
 
     public Color() {}
 
-    public Color(Long id, String name) {
-        this.id = id;
+    public Color(String name) {
         this.name = name;
     }
 
@@ -25,5 +25,18 @@ public class Color {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Color color = (Color) o;
+        return name.equals(color.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 }

@@ -6,6 +6,7 @@ import br.com.marcelomsilva.backendtestjava.dto.form.VacancyForm;
 import br.com.marcelomsilva.backendtestjava.dto.form.VehicleControlEntryForm;
 import br.com.marcelomsilva.backendtestjava.dto.form.VehicleForm;
 import br.com.marcelomsilva.backendtestjava.entity.*;
+import br.com.marcelomsilva.backendtestjava.repository.ColorRepository;
 import br.com.marcelomsilva.backendtestjava.repository.ParkingRepository;
 import br.com.marcelomsilva.backendtestjava.service.ParkingService;
 import br.com.marcelomsilva.backendtestjava.service.VacancyService;
@@ -29,7 +30,6 @@ public class VehicleControlServiceTest {
     @Autowired
     VehicleControlService service;
 
-    //@Mock
     @Autowired
     VehicleService vehicleService;
 
@@ -39,6 +39,9 @@ public class VehicleControlServiceTest {
     @Autowired
     ParkingRepository parkingRepository;
 
+    @Autowired
+    ColorRepository colorRepository;
+
     @Test
     public void create() {
         // Create Parking
@@ -47,7 +50,11 @@ public class VehicleControlServiceTest {
         Parking parking = new Parking("estacionamento", "123", "email", "password",address, phone);
         parkingRepository.save(parking);
 
-        VehicleForm form = new VehicleForm("drwew48", parking.getId(), 1L);
+        //Create Color
+        Color color = new Color("teste");
+        colorRepository.save(color);
+
+        VehicleForm form = new VehicleForm("drwew48", color.getId(), parking.getId(), 1L);
         VehicleDto vehicle = vehicleService.create(form).getBody();
         vacancyService.create(new VacancyForm(10, 2L, parking.getId())).getBody();
         assertEquals(200, service.create(new VehicleControlEntryForm(vehicle.getId(), Instant.now())).getStatusCodeValue());
