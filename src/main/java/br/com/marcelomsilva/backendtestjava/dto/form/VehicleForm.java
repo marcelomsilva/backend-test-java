@@ -17,6 +17,9 @@ public class VehicleForm {
     private String plate;
 
     @Min(0)
+    private Long colorId;
+
+    @Min(0)
     private Long parkingId;
 
     @Min(0)
@@ -41,6 +44,6 @@ public class VehicleForm {
     }
 
     public Vehicle convertToEntity(ColorService colorService, ParkingService parkingService, ModelService modelService) {
-        return new Vehicle(plate, ,parkingService.verifyAndGetById(parkingId), modelService.verifyAndGetById(modelId));
+        return new Vehicle(plate, colorService.verifyAndGetById(colorId),parkingService.verifyAndGetById(parkingId), modelService.verifyAndGetById(modelId));
     }
 }

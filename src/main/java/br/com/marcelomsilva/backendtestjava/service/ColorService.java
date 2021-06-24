@@ -7,5 +7,5 @@ import java.util.Optional;
 
 public interface ColorService {
 
-    Optional<Color> verifyVehicleHasPendingControl(Long id);
+    Color verifyAndGetById(Long id);
 }
