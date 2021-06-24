@@ -25,14 +25,19 @@ public class VehicleForm {
     @Min(0)
     private Long modelId;
 
-    public VehicleForm(String plate, Long parkingId, Long modelId) {
+    public VehicleForm(String plate, Long colorId, Long parkingId, Long modelId) {
         this.plate = plate;
+        this.colorId = colorId;
         this.parkingId = parkingId;
         this.modelId = modelId;
     }
 
     public String getPlate() {
         return plate;
+    }
+
+    public Long getColorId() {
+        return colorId;
     }
 
     public Long getParkingId() {
