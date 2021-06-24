@@ -60,6 +60,7 @@ public class VehicleServiceImpl implements VehicleService {
     public ResponseEntity<VehicleDto> update(Long id, VehicleUpdateForm form) {
         Vehicle vehicle = verifyHasPendingControl(id);
         vehicle.setPlate(form.getPlate());
+        vehicle.setColor(colorService.verifyAndGetById(form.getColorId()));
         vehicle.setModel(modelService.verifyAndGetById(form.getModelId()));
         vehicleRepository.save(vehicle);
         return ResponseEntity.ok().body(new VehicleDto(vehicle));
