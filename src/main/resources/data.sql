@@ -1,4 +1,4 @@
-insert into brand(name) values('Chevrolet');
+/*insert into brand(name) values('Chevrolet');
 insert into brand(name) values('Volkswagens');
 insert into brand(name) values('Yamaha');
 insert into brand(name) values('Honda');
@@ -28,3 +28,5 @@ insert into color(name) values('Cinza');
 
 insert into vehicle(plate, color_id, parking_id, model_id, is_active) values('ytd215e', 1, 1, 1, true);
 insert into vehicle(plate, color_id, parking_id, model_id, is_active) values('gege54', 3, 1, 6, true);
+
+ */
