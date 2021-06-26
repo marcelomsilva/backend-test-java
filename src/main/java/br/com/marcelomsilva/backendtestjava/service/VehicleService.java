@@ -1,6 +1,5 @@
 package br.com.marcelomsilva.backendtestjava.service;
 
-import br.com.marcelomsilva.backendtestjava.dto.ParkingDto;
 import br.com.marcelomsilva.backendtestjava.dto.VehicleDto;
 import br.com.marcelomsilva.backendtestjava.dto.form.VehicleForm;
 import br.com.marcelomsilva.backendtestjava.dto.form.VehicleUpdateForm;
