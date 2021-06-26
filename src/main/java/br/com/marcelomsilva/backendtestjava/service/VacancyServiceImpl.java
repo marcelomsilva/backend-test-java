@@ -28,6 +28,8 @@ public class VacancyServiceImpl implements VacancyService {
 
     @Override
     public ResponseEntity<VacancyDto> create(VacancyForm form) {
+        if(vacancyRepository.findParkingVacancyByTypeId(form.getParkingId(), form.getTypeId()).isPresent())
+            throw new IllegalArgumentException("Já existe uma vaga desse tipo para esse estacionamento");
         return ResponseEntity.ok().body(new VacancyDto(vacancyRepository.save(form.convertToEntity(typeService, parkingService))));
     }
 
