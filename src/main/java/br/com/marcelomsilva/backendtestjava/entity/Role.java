@@ -2,10 +2,7 @@ package br.com.marcelomsilva.backendtestjava.entity;
 
 import org.springframework.security.core.GrantedAuthority;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Set;
 
 @Entity
@@ -15,8 +12,10 @@ public class Role implements GrantedAuthority {
     @Id
     private String name;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "role")
     private Set<Parking> parkings;
+
+    public Role() {}
 
     @Override
     public String getAuthority() {

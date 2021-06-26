@@ -1,5 +1,6 @@
 package br.com.marcelomsilva.backendtestjava.entity;
 
+import org.intellij.lang.annotations.Identifier;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

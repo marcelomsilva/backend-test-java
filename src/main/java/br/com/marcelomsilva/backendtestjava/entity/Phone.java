@@ -14,7 +14,7 @@ public class Phone {
     private String code;
     private String number;
     @ManyToOne
-    @JoinColumn(name = "parking_id")
+    @JoinColumn(name = "parking_id", referencedColumnName = "id")
     private Parking parking;
 
     public Phone() {}
