@@ -3,7 +3,6 @@ package br.com.marcelomsilva.backendtestjava.config.security;
 import br.com.marcelomsilva.backendtestjava.repository.ParkingRepository;
 import br.com.marcelomsilva.backendtestjava.service.ParkingServiceImpl;
 import br.com.marcelomsilva.backendtestjava.service.TokenService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -36,6 +35,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/auth/login").permitAll()
+                .antMatchers(HttpMethod.POST, "/parking").permitAll()
                 .anyRequest().authenticated()
                 .and().csrf().disable()
                 .headers().frameOptions().disable().and()

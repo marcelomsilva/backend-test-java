@@ -12,6 +12,7 @@ public class VehicleControlDto {
     private Instant entry;
     private Instant departure;
     private Duration duration;
+    private Boolean isCancelled;
 
 
     public VehicleControlDto(VehicleControl vehicleControl) {
@@ -20,6 +21,7 @@ public class VehicleControlDto {
         this.entry = vehicleControl.getEntry();
         this.departure = vehicleControl.getDeparture();
         this.duration = vehicleControl.getDuration();
+        this.isCancelled = vehicleControl.getCancelled();
     }
 
     public Long getId() {
@@ -40,5 +42,9 @@ public class VehicleControlDto {
 
     public Duration getDuration() {
         return duration;
+    }
+
+    public Boolean getIsCancelled() {
+        return isCancelled;
     }
 }
