@@ -1,58 +1,36 @@
-### FCamara 🚀
-*"Queremos ser como uma árvore, 
-  crescer um pouco todos os dias e tentar tocar o céu, 
-  sem perder a solidez de nossas raízes."*
-Conheça: www.fcamara.com.br
+# Backend Test Java
+API para o projeto desafio do Grupo FCamara. O desafio consiste na criação de um sistema para controle de veículos
+em um estacionamento.
 
-## Teste para vaga de Desenvolvedor Back-end
-Criar uma API REST para gerenciar um estacionamento de carros e motos.
+# Modelo de Entidade Relacionamento
+As entidades para o banco de dados relacional foi baseada no modelo abaixo. Esse modelo foi
+pensado para o desenvolvimento de um sistema que pudesse ser "adaptável" para qualquer tipo de estacionamento, uma vez que,
+as entidades são flexíveis para cada usuário(estacionamento).
 
-## Cadastro de estabelecimento
+![](docs/images/der.png)
 
-Criar um cadastro da empresa com os seguintes campos:
-- Nome;
-- CNPJ;
-- Endereço;
-- Telefone;
-- Quantidade de vagas para motos;
-- Quantidade de vagas para carros.
+## Tecnologias utilizadas
+- MySQL
+- Java 8
+- Spring Framework
+  - Spring Security
+    - Autenticação(JWT)
+  - Spring Data
+    - Hibernate
+  - Spring Validation
+    - Bean Validation
+  - Spring Fox
+    - Documentação Swagger
 
-**Todos** os campos são de preenchimento obrigatório.
+## Pré-requisitos
+Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
+[Git](https://git-scm.com), [JDK-18](https://www.oracle.com/br/java/technologies/javase-jdk8-downloads.html) e [Maven](https://maven.apache.org/download.cgi).
+Além disto é bom ter um editor para trabalhar com o código como [VSCode](https://code.visualstudio.com/)
 
-## Cadastro de veículos
-
-Criar um cadastro de veículos com os seguintes campos:
-- Marca;
-- Modelo;
-- Cor;
-- Placa;
-- Tipo.
-
-**Todos** os campos são de preenchimento obrigatório.
-
-## Funcionalidades
-
-   - **Estabelecimento:** CRUD;
-   - **Veículos:** CRUD;
-   - **Controle de entrada e saída de veículos.**
-
-## Requisitos
-
-   - Modelagem de dados;
-   - O retorno deverá ser em formato JSON e XML;
-   - Requisições GET, POST, PUT ou DELETE, conforme a melhor prática;
-   - A persistência dos dados pode ser realizada da maneira que preferir;
-   - Criar README do projeto descrevendo as tecnologias utilizadas, chamadas dos serviços e configurações necessário para executar a aplicação.
-   
-## Ganha mais pontos
-   - Desenvolver utilizando TDD;
-   - Criar API de relatório;
-   - Sumário da quantidade de entrada e saída;
-   - Sumário da quantidade de entrada e saída de veículos por hora;
-   - Criar uma solução de autenticação.
-
-## Submissão
-Crie um fork do teste para acompanharmos o seu desenvolvimento através dos seus commits.
-
-## Obrigado!
-Agradecemos sua participação no teste. Boa sorte! 😄
+## Rodando a Aplicação na sua máquina
+- Clone este repositório através do terminal ``` $ git clone https://github.com/marcelomsilva/backend-test-java.git ```
+- Acesse a pasta do projeto no terminal ``` $ cd api ```
+- Faça o build e rode a API ``` $ mvn install ```
+- Entre no diretório target ``` $ cd target/ ```
+- Execute o comando para rodar a aplicação ``` $ java -jar <arquivo.jar com a versao atual> ```
+- A Aplicação irá subir na seguinte URL:  [http://localhost:8080/](http://localhost:8080/)
