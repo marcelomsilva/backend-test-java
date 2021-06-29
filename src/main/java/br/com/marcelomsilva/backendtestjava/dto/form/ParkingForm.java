@@ -4,6 +4,7 @@ import br.com.marcelomsilva.backendtestjava.entity.Address;
 import br.com.marcelomsilva.backendtestjava.entity.Parking;
 import br.com.marcelomsilva.backendtestjava.entity.Phone;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -56,7 +57,7 @@ public class ParkingForm {
         this.name = name;
         this.cnpj = cnpj;
         this.email = email;
-        this.password = password;
+        this.password = new BCryptPasswordEncoder().encode(password);
         this.zipCode = zipCode;
         this.publicPlace = publicPlace;
         this.number = number;
